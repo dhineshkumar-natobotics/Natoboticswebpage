@@ -1,0 +1,18 @@
+.wrap {
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  padding-block: var(--space-11);
+}
+
+.title {
+  font-size: var(--fs-display-md);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  margin-block: var(--space-4) var(--space-4);
+  max-width: 640px;
+}
+
+.button {
+  margin-top: var(--space-7);
+}

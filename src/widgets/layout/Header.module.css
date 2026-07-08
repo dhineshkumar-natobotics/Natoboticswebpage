@@ -1,0 +1,276 @@
+.navCapsule {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  background-color: rgba(244, 244, 244, 0.6);
+  backdrop-filter: blur(var(--blur-sm));
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-full);
+  padding: var(--space-1);
+  transition: all var(--duration-fast) var(--ease-out-expo);
+}
+
+.navCapsuleTransparent {
+  background-color: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.navItem {
+  font-family: var(--font-sans);
+  font-size: var(--fs-body-sm);
+  font-weight: 500;
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-full);
+  color: var(--color-text-secondary);
+  transition: all var(--duration-fast) var(--ease-out-expo);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.navItemTransparent {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.navItemTransparent:hover {
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.12);
+}
+
+.navItem:hover {
+  color: var(--color-text-primary);
+  background-color: var(--color-bg-surface-2);
+}
+
+.navItemActive {
+  color: var(--color-accent-600) !important;
+  background-color: rgba(47, 111, 237, 0.08) !important;
+}
+
+.navItemActiveTransparent {
+  color: #ffffff !important;
+  background-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+/* Floating Megamenu Dropdown Card */
+.dropdownCard {
+  position: absolute;
+  top: 76px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100vw - var(--container-gutter) * 2);
+  max-width: 1024px;
+  background-color: var(--color-bg-base);
+  border: 1px solid var(--color-border-default);
+  border-radius: 16px;
+  box-shadow: var(--elevation-3);
+  overflow: hidden;
+  z-index: var(--z-dropdown);
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100vh - 120px);
+}
+
+.megamenuGrid {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  overflow: hidden;
+  flex: 1;
+}
+
+@media (max-width: 900px) {
+  .megamenuGrid {
+    grid-template-columns: 1fr;
+    overflow-y: auto;
+  }
+  .explorePanel {
+    display: none;
+  }
+}
+
+.leftContent {
+  padding: var(--space-6);
+  background-color: var(--color-bg-base);
+  overflow-y: auto;
+}
+
+.explorePanel {
+  padding: var(--space-6);
+  border-left: 1px solid var(--color-border-subtle);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow-y: auto;
+}
+
+/* Custom scrollbar styles */
+.leftContent::-webkit-scrollbar,
+.explorePanel::-webkit-scrollbar,
+.megamenuGrid::-webkit-scrollbar {
+  width: 6px;
+}
+
+.leftContent::-webkit-scrollbar-track,
+.explorePanel::-webkit-scrollbar-track,
+.megamenuGrid::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.leftContent::-webkit-scrollbar-thumb,
+.explorePanel::-webkit-scrollbar-thumb,
+.megamenuGrid::-webkit-scrollbar-thumb {
+  background: var(--color-border-subtle);
+  border-radius: 3px;
+}
+
+.leftContent::-webkit-scrollbar-thumb:hover,
+.explorePanel::-webkit-scrollbar-thumb:hover,
+.megamenuGrid::-webkit-scrollbar-thumb:hover {
+  background: var(--color-border-default);
+}
+
+/* Tab-specific Explore colors */
+.exploreServices {
+  background-color: rgba(47, 111, 237, 0.02);
+  background-image: radial-gradient(circle at 100% 0%, rgba(47, 111, 237, 0.06) 0%, transparent 60%);
+}
+
+.exploreIndustries {
+  background-color: rgba(31, 194, 214, 0.02);
+  background-image: radial-gradient(circle at 100% 0%, rgba(31, 194, 214, 0.06) 0%, transparent 60%);
+}
+
+.exploreCompany {
+  background-color: rgba(255, 111, 60, 0.02);
+  background-image: radial-gradient(circle at 100% 0%, rgba(255, 111, 60, 0.06) 0%, transparent 60%);
+}
+
+.bottomBanner {
+  grid-column: 1 / -1;
+  background-color: var(--color-bg-inset);
+  border-top: 1px solid var(--color-border-subtle);
+  padding: var(--space-4) var(--space-6);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.bottomBannerText {
+  font-size: var(--fs-body-sm);
+  color: var(--color-text-secondary);
+}
+
+.bottomBannerText strong {
+  color: var(--color-text-primary);
+}
+
+/* Card Menu Item Grid */
+.menuItemsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-3);
+}
+
+.menuItemLink {
+  display: flex;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  border-radius: 8px;
+  border: 1px solid transparent;
+  transition: all var(--duration-fast) var(--ease-out-expo);
+  cursor: pointer;
+}
+
+.menuItemLink:hover {
+  background-color: var(--color-bg-surface);
+  border-color: var(--color-border-subtle);
+  transform: translateX(2px);
+}
+
+.iconWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 8px;
+  flex-shrink: 0;
+  transition: transform var(--duration-fast) var(--ease-out-expo);
+}
+
+.menuItemLink:hover .iconWrapper {
+  transform: scale(1.08);
+}
+
+.menuItemTitle {
+  font-size: var(--fs-body-sm);
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-bottom: 2px;
+  transition: color var(--duration-fast) var(--ease-out-expo);
+}
+
+.menuItemLink:hover .menuItemTitle {
+  color: var(--color-orange-500);
+}
+
+.menuItemDesc {
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+  line-height: 1.35;
+}
+
+/* Featured case study layout */
+.featuredCaseList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin-top: var(--space-3);
+}
+
+.featuredCaseItem {
+  display: flex;
+  gap: var(--space-3);
+  align-items: flex-start;
+  padding: var(--space-2);
+  border-radius: 6px;
+  transition: background-color var(--duration-fast) var(--ease-out-expo);
+}
+
+.featuredCaseItem:hover {
+  background-color: rgba(0, 0, 0, 0.03);
+}
+
+.caseThumb {
+  width: 72px;
+  height: 54px;
+  border-radius: 4px;
+  object-fit: cover;
+  flex-shrink: 0;
+  border: 1px solid var(--color-border-subtle);
+}
+
+.caseMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.caseClient {
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+  text-transform: uppercase;
+  color: var(--color-text-tertiary);
+  letter-spacing: 0.03em;
+}
+
+.caseTitle {
+  font-size: 0.825rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  line-height: 1.3;
+}
