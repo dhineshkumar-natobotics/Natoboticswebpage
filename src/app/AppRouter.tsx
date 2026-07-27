@@ -10,12 +10,17 @@ import { GlobalDeliveryPage } from '../pages/GlobalDeliveryPage';
 import { CareersPage } from '../pages/CareersPage';
 import { JobDetailPage } from '../pages/JobDetailPage';
 import { ContactPage } from '../pages/ContactPage';
-import { StubPage } from '../pages/StubPage';
 import { NotFoundPage } from '../pages/NotFoundPage';
 import { TeamPage } from '../pages/TeamPage';
 import { BlogPage } from '../pages/BlogPage';
 import { WhitepapersPage } from '../pages/WhitepapersPage';
 import { FaqPage } from '../pages/FaqPage';
+import { PortfolioPage } from '../pages/PortfolioPage';
+import { ClientsPage } from '../pages/ClientsPage';
+import { PressPage } from '../pages/PressPage';
+import { PartnersPage } from '../pages/PartnersPage';
+import { PrivacyPage } from '../pages/PrivacyPage';
+import { TermsPage } from '../pages/TermsPage';
 
 export function AppRouter() {
   return (
@@ -39,28 +44,17 @@ export function AppRouter() {
 
           <Route path="/global-delivery" element={<GlobalDeliveryPage />} />
 
+          <Route path="/portfolio" element={<PortfolioPage />} />
+          <Route path="/clients" element={<ClientsPage />} />
+
           <Route
             path="/company/leadership"
             element={<TeamPage />}
           />
           <Route path="/company/careers" element={<CareersPage />} />
           <Route path="/company/careers/:slug" element={<JobDetailPage />} />
-          <Route
-            path="/company/press"
-            element={
-              <StubPage eyebrow="Company" title="Press" description="Newsroom content is scoped for Phase 4 (CMS)." />
-            }
-          />
-          <Route
-            path="/company/partners"
-            element={
-              <StubPage
-                eyebrow="Company"
-                title="Partners"
-                description="Technology and delivery partner profiles are scoped for Phase 4 (CMS)."
-              />
-            }
-          />
+          <Route path="/company/press" element={<PressPage />} />
+          <Route path="/company/partners" element={<PartnersPage />} />
 
           <Route
             path="/resources/blog"
@@ -77,14 +71,8 @@ export function AppRouter() {
 
           <Route path="/contact" element={<ContactPage />} />
 
-          <Route
-            path="/legal/privacy"
-            element={<StubPage eyebrow="Legal" title="Privacy Policy" description="Final legal copy pending review." />}
-          />
-          <Route
-            path="/legal/terms"
-            element={<StubPage eyebrow="Legal" title="Terms of Service" description="Final legal copy pending review." />}
-          />
+          <Route path="/legal/privacy" element={<PrivacyPage />} />
+          <Route path="/legal/terms" element={<TermsPage />} />
 
           <Route path="*" element={<NotFoundPage />} />
         </Routes>

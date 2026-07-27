@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Container } from '../../components/ui/Container';
+import { services } from '../../data/services';
+import { industries } from '../../data/industries';
 import styles from './Footer.module.css';
 
 // Custom inline SVG components for Square Social Icons to keep things lightweight & robust
@@ -60,53 +62,52 @@ export function Footer() {
     <footer className={styles.footer}>
       <Container>
         <div className={styles.topGrid}>
-          {/* Column 1: Product & Social */}
+          {/* Column 1: Services & Social */}
           <div className={styles.linkColumn}>
             <div className={styles.group}>
-              <h4 className={styles.heading}>Product</h4>
+              <h4 className={styles.heading}>Services</h4>
               <ul className={styles.list}>
-                <li><Link to="/services">Services Overview</Link></li>
-                <li><Link to="/about">AI Capabilities</Link></li>
-                <li><Link to="/case-studies">Case Studies</Link></li>
-                <li><Link to="/contact">Request Demo</Link></li>
-                <li><Link to="/resources/whitepapers">Whitepapers</Link></li>
+                {services.slice(0, 4).map((s) => (
+                  <li key={s.slug}><Link to={`/services/${s.slug}`}>{s.name}</Link></li>
+                ))}
+                <li><Link to="/services">All Services</Link></li>
               </ul>
             </div>
-            
+
             <div className={styles.group}>
               <h4 className={styles.heading}>Social</h4>
               <div className={styles.socialGrid}>
-                <a 
-                  href="https://linkedin.com/company/natobotics" 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
+                <a
+                  href="https://linkedin.com/company/natobotics"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className={styles.socialSquare}
                   aria-label="LinkedIn"
                 >
                   <LinkedinIcon />
                 </a>
-                <a 
-                  href="https://youtube.com" 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
+                <a
+                  href="https://youtube.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className={styles.socialSquare}
                   aria-label="YouTube"
                 >
                   <YoutubeIcon />
                 </a>
-                <a 
-                  href="https://github.com/natobotics" 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
+                <a
+                  href="https://github.com/natobotics"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className={styles.socialSquare}
                   aria-label="GitHub"
                 >
                   <GithubIcon />
                 </a>
-                <a 
-                  href="https://twitter.com" 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
+                <a
+                  href="https://twitter.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className={styles.socialSquare}
                   aria-label="Twitter/X"
                 >
@@ -116,64 +117,66 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Column 2: Developers & Research */}
+          {/* Column 2: Industries & Company */}
           <div className={styles.linkColumn}>
             <div className={styles.group}>
-              <h4 className={styles.heading}>For Developers</h4>
+              <h4 className={styles.heading}>Industries</h4>
               <ul className={styles.list}>
-                <li><Link to="/resources/faqs">Developer Hub</Link></li>
-                <li><Link to="/services">API Documentation</Link></li>
-                <li><a href="https://github.com/natobotics" target="_blank" rel="noopener noreferrer">Open Source</a></li>
-                <li><Link to="/contact">System Status</Link></li>
-                <li><Link to="/resources/faqs">FAQs</Link></li>
-              </ul>
-            </div>
-            
-            <div className={styles.group}>
-              <h4 className={styles.heading}>Research</h4>
-              <ul className={styles.list}>
-                <li><Link to="/resources/whitepapers">AI & Big Data Reports</Link></li>
-                <li><Link to="/about">Enterprise Security</Link></li>
-                <li><Link to="/global-delivery">Infrastructure Standards</Link></li>
-              </ul>
-            </div>
-          </div>
-
-          {/* Column 3: Solutions & Company */}
-          <div className={styles.linkColumn}>
-            <div className={styles.group}>
-              <h4 className={styles.heading}>Solutions</h4>
-              <ul className={styles.list}>
-                <li><Link to="/industries/aerospace-defense">Aerospace & Defense</Link></li>
-                <li><Link to="/industries/automotive-transit">Automotive & Transit</Link></li>
-                <li><Link to="/industries/healthcare-biotech">Healthcare & Biotech</Link></li>
-                <li><Link to="/industries/financial-services">Financial Services</Link></li>
+                {industries.map((ind) => (
+                  <li key={ind.slug}><Link to={`/industries/${ind.slug}`}>{ind.name}</Link></li>
+                ))}
                 <li><Link to="/industries">All Industries</Link></li>
               </ul>
             </div>
-            
+
             <div className={styles.group}>
               <h4 className={styles.heading}>Company</h4>
               <ul className={styles.list}>
                 <li><Link to="/about">About Us</Link></li>
+                <li><Link to="/company/leadership">Leadership</Link></li>
                 <li><Link to="/company/careers">Careers</Link></li>
-                <li><Link to="/resources/blog">Blog</Link></li>
-                <li><Link to="/company/leadership">Our Team</Link></li>
-                <li><Link to="/global-delivery">Global Delivery</Link></li>
               </ul>
             </div>
           </div>
 
-          {/* Column 4: Legal & Badge */}
+          {/* Column 3: Our Work & Resources */}
           <div className={styles.linkColumn}>
+            <div className={styles.group}>
+              <h4 className={styles.heading}>Our Work</h4>
+              <ul className={styles.list}>
+                <li><Link to="/case-studies">Case Studies</Link></li>
+                <li><Link to="/portfolio">Project Portfolio</Link></li>
+                <li><Link to="/clients">Client Portfolio</Link></li>
+                <li><Link to="/global-delivery">Global Delivery</Link></li>
+              </ul>
+            </div>
+
+            <div className={styles.group}>
+              <h4 className={styles.heading}>Resources</h4>
+              <ul className={styles.list}>
+                <li><Link to="/resources/blog">Blog</Link></li>
+                <li><Link to="/resources/whitepapers">Whitepapers</Link></li>
+                <li><Link to="/resources/faqs">FAQs</Link></li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Column 4: Newsroom, Legal & Badge */}
+          <div className={styles.linkColumn}>
+            <div className={styles.group}>
+              <h4 className={styles.heading}>Newsroom</h4>
+              <ul className={styles.list}>
+                <li><Link to="/company/press">Press</Link></li>
+                <li><Link to="/company/partners">Partners</Link></li>
+                <li><Link to="/contact">Contact</Link></li>
+              </ul>
+            </div>
+
             <div className={styles.group}>
               <h4 className={styles.heading}>Legal</h4>
               <ul className={styles.list}>
                 <li><Link to="/legal/terms">Terms of Use</Link></li>
                 <li><Link to="/legal/privacy">Privacy Policy</Link></li>
-                <li><Link to="/about">Trust Center</Link></li>
-                <li><Link to="/legal/privacy">Cookie Policy</Link></li>
-                <li><Link to="/legal/terms">Acceptable Use Policy</Link></li>
               </ul>
             </div>
 

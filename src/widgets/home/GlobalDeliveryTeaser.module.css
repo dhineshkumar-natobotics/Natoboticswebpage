@@ -76,3 +76,19 @@
     grid-template-columns: 1fr;
   }
 }
+
+.mapWrapper {
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(var(--blur-sm));
+  -webkit-backdrop-filter: blur(var(--blur-sm));
+  border: 2px solid var(--color-border-default);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  box-shadow: var(--elevation-2);
+  padding: var(--space-4);
+  position: relative;
+  min-height: 450px;
+  display: flex;
+  align-items: center;
+}
+

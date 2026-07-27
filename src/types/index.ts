@@ -18,6 +18,8 @@ export interface OfficeItem {
   lat: number;
   lng: number;
   type: 'headquarters' | 'regional';
+  timezone: string;
+  description: string;
 }
 
 export interface StatItem {
@@ -33,4 +35,23 @@ export interface CaseStudyItem {
   summary: string;
   metrics: { label: string; value: string }[];
   image?: string;
+}
+
+export interface ProjectPortfolioItem {
+  slug: string;
+  title: string;
+  client: string;
+  category: string;
+  description: string;
+  techStack: string[];
+  year: string;
+}
+
+export interface ClientItem {
+  slug: string;
+  name: string;
+  industry: string;
+  testimonial: string;
+  contact: string;
+  since: string;
 }

@@ -1,11 +1,14 @@
+import { useState } from 'react';
 import { Container } from '../../components/ui/Container';
 import { Section } from '../../components/ui/Section';
 import { Reveal } from '../../components/ui/Reveal';
 import { Button } from '../../components/ui/Button';
-import { offices } from '../../data/offices';
+import InteractiveWorldMap from '../../components/ui/InteractiveWorldMap';
 import styles from './GlobalDeliveryTeaser.module.css';
 
 export function GlobalDeliveryTeaser() {
+  const [hoveredCountry, setHoveredCountry] = useState<string | null>(null);
+
   return (
     <Section id="global-delivery" bleed>
       <div className={styles.ambient} aria-hidden="true" />
@@ -26,17 +29,12 @@ export function GlobalDeliveryTeaser() {
         </Reveal>
 
         <Reveal delay={0.1}>
-          <ul className={styles.officeList}>
-            {offices.map((o) => (
-              <li key={o.city} className={styles.officeRow}>
-                <span className={styles.officeDot} data-hq={o.type === 'headquarters'} />
-                <span className={styles.officeCity}>{o.city}</span>
-                <span className={styles.officeCountry}>{o.country}</span>
-              </li>
-            ))}
-          </ul>
+          <div className={styles.mapWrapper}>
+            <InteractiveWorldMap hoveredCountry={hoveredCountry} onLocationHover={setHoveredCountry} />
+          </div>
         </Reveal>
       </Container>
     </Section>
   );
 }
+

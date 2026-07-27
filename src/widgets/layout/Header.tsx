@@ -100,13 +100,13 @@ export function Header() {
     <header
       className={clsx(
         "fixed top-0 left-0 right-0 z-sticky-nav border-b border-transparent bg-transparent transition-[background-color,border-color] duration-base ease-out-expo",
-        showSolidBg && "bg-bg-base border-b border-border-default shadow-sm"
+        showSolidBg && clsx("border-b", styles.headerSolid)
       )}
     >
       <Container className="flex items-center justify-between h-[76px]">
         <Link
           to="/"
-          className="flex items-center gap-[10px] font-bold text-[1.15rem] tracking-tight text-text-primary transition-opacity duration-fast ease-out-expo hover:opacity-90"
+          className={clsx("flex items-center gap-[10px] font-bold text-[1.15rem] tracking-tight transition-opacity duration-fast ease-out-expo hover:opacity-90", styles.wordmarkText)}
           onMouseEnter={handleMouseLeave}
         >
           <LogoMarkSVG
@@ -118,21 +118,22 @@ export function Header() {
           />
           <span
             className={clsx(
-              "bg-gradient-to-r bg-clip-text text-transparent font-sans",
+              "bg-gradient-to-r bg-clip-text text-transparent text-[1.25rem]",
               homeTransparent ? "from-white to-[#dcdcdc]" : "from-black to-[#4b4f54]"
             )}
+            style={{ fontFamily: 'var(--font-display)' }}
           >
             Natobotics
           </span>
         </Link>
  
-        <nav 
+        <nav
           className={clsx(
             styles.navCapsule,
             homeTransparent && styles.navCapsuleTransparent,
-            "max-lg:hidden"
-          )} 
-          aria-label="Primary" 
+            styles.navCapsuleResponsive
+          )}
+          aria-label="Primary"
           onMouseLeave={handleMouseLeave}
         >
           {/* Services Link & Menu */}
@@ -154,7 +155,7 @@ export function Header() {
                 className={clsx(
                   "w-2.5 h-2.5 opacity-60 transition-transform duration-fast ease-out-expo",
                   activeTab === 'services' && "rotate-180",
-                  homeTransparent ? "text-white" : "text-text-secondary"
+                  homeTransparent ? "text-white" : styles.chevronSecondary
                 )}
                 viewBox="0 0 8 8"
                 fill="none"
@@ -183,7 +184,7 @@ export function Header() {
                 className={clsx(
                   "w-2.5 h-2.5 opacity-60 transition-transform duration-fast ease-out-expo",
                   activeTab === 'industries' && "rotate-180",
-                  homeTransparent ? "text-white" : "text-text-secondary"
+                  homeTransparent ? "text-white" : styles.chevronSecondary
                 )}
                 viewBox="0 0 8 8"
                 fill="none"
@@ -212,7 +213,7 @@ export function Header() {
                 className={clsx(
                   "w-2.5 h-2.5 opacity-60 transition-transform duration-fast ease-out-expo",
                   activeTab === 'company' && "rotate-180",
-                  homeTransparent ? "text-white" : "text-text-secondary"
+                  homeTransparent ? "text-white" : styles.chevronSecondary
                 )}
                 viewBox="0 0 8 8"
                 fill="none"
@@ -252,22 +253,25 @@ export function Header() {
         </nav>
  
         <div className="flex items-center gap-3" onMouseEnter={handleMouseLeave}>
-          <Button
-            to="/contact"
-            size="md"
-            variant="secondary"
-            className={clsx(
-              "hidden lg:inline-flex",
-              homeTransparent
-                ? "bg-transparent! border-white/40! text-white! hover:bg-white/8! hover:border-white! hover:shadow-[4px_4px_0_0_#ffffff]!"
-                : ""
-            )}
-          >
-            Contact
-          </Button>
-          <Button to="/contact" size="md" variant="orange">
-            Start a project
-          </Button>
+          <span className="hidden lg:inline-flex">
+            <Button
+              to="/contact"
+              size="md"
+              variant="secondary"
+              className={
+                homeTransparent
+                  ? "bg-transparent! border-white/40! text-white! hover:bg-white/8! hover:border-white! hover:shadow-[4px_4px_0_0_#ffffff]!"
+                  : ""
+              }
+            >
+              Contact
+            </Button>
+          </span>
+          <span className="hidden lg:inline-flex">
+            <Button to="/contact" size="md" variant="orange">
+              Start a project
+            </Button>
+          </span>
           <button
             className="hidden max-lg:flex flex-col gap-[6px] bg-none border-none p-2 cursor-pointer"
             aria-expanded={menuOpen}
@@ -277,14 +281,14 @@ export function Header() {
             <span
               className={clsx(
                 "w-[22px] h-[2px] transition-all duration-fast ease-out-expo",
-                homeTransparent ? "bg-white" : "bg-text-primary",
+                homeTransparent ? "bg-white" : styles.hamburgerBarSolid,
                 menuOpen && "translate-y-[4px] rotate-45"
               )}
             />
             <span
               className={clsx(
                 "w-[22px] h-[2px] transition-all duration-fast ease-out-expo",
-                homeTransparent ? "bg-white" : "bg-text-primary",
+                homeTransparent ? "bg-white" : styles.hamburgerBarSolid,
                 menuOpen && "-translate-y-[4px] -rotate-45"
               )}
             />
@@ -308,10 +312,10 @@ export function Header() {
               <div className={styles.leftContent}>
                 {activeTab === 'services' && (
                   <div>
-                    <span className="block font-mono text-[0.725rem] text-text-tertiary uppercase tracking-[0.08em] mb-4 font-semibold">Core Services & Technologies</span>
+                    <span className={styles.eyebrowLabel}>Core Services & Technologies</span>
                     <div className={styles.menuItemsGrid}>
                       <div className="flex flex-col gap-2">
-                        <span className="block text-[0.675rem] font-bold text-text-tertiary uppercase tracking-wider mb-1">Services</span>
+                        <span className={styles.eyebrowLabelSm}>Services</span>
                         {services.slice(0, 6).map((service) => (
                           <Link
                             key={service.slug}
@@ -319,7 +323,7 @@ export function Header() {
                             className={styles.menuItemLink}
                             onClick={() => setActiveTab(null)}
                           >
-                            <div className={clsx(styles.iconWrapper, "bg-accent-500/10 text-accent-500")}>
+                            <div className={clsx(styles.iconWrapper, styles.iconAccent)}>
                               <Layers size={16} />
                             </div>
                             <div>
@@ -330,7 +334,7 @@ export function Header() {
                         ))}
                       </div>
                       <div className="flex flex-col gap-2">
-                        <span className="block text-[0.675rem] font-bold text-text-tertiary uppercase tracking-wider mb-1">Technologies</span>
+                        <span className={styles.eyebrowLabelSm}>Technologies</span>
                         {services.slice(6).map((tech) => (
                           <Link
                             key={tech.slug}
@@ -338,7 +342,7 @@ export function Header() {
                             className={styles.menuItemLink}
                             onClick={() => setActiveTab(null)}
                           >
-                            <div className={clsx(styles.iconWrapper, "bg-orange-500/10 text-orange-500")}>
+                            <div className={clsx(styles.iconWrapper, styles.iconOrange)}>
                               <Cpu size={16} />
                             </div>
                             <div>
@@ -354,7 +358,7 @@ export function Header() {
  
                 {activeTab === 'industries' && (
                   <div>
-                    <span className="block font-mono text-[0.725rem] text-text-tertiary uppercase tracking-[0.08em] mb-4 font-semibold">Industries We Serve</span>
+                    <span className={styles.eyebrowLabel}>Industries We Serve</span>
                     <div className={styles.menuItemsGrid}>
                       {industries.map((ind) => (
                         <Link
@@ -363,7 +367,7 @@ export function Header() {
                           className={styles.menuItemLink}
                           onClick={() => setActiveTab(null)}
                         >
-                          <div className={clsx(styles.iconWrapper, "bg-ai-500/10 text-ai-500")}>
+                          <div className={clsx(styles.iconWrapper, styles.iconAi)}>
                             <Building2 size={16} />
                           </div>
                           <div>
@@ -378,10 +382,10 @@ export function Header() {
  
                 {activeTab === 'company' && (
                   <div>
-                    <span className="block font-mono text-[0.725rem] text-text-tertiary uppercase tracking-[0.08em] mb-4 font-semibold">Our Company</span>
+                    <span className={styles.eyebrowLabel}>Our Company</span>
                     <div className={styles.menuItemsGrid}>
                       <Link to="/about-natobotics.html" className={styles.menuItemLink} onClick={() => setActiveTab(null)}>
-                        <div className={clsx(styles.iconWrapper, "bg-ai-500/10 text-ai-500")}>
+                        <div className={clsx(styles.iconWrapper, styles.iconAi)}>
                           <Info size={16} />
                         </div>
                         <div>
@@ -391,7 +395,7 @@ export function Header() {
                       </Link>
  
                       <Link to="/company/careers" className={styles.menuItemLink} onClick={() => setActiveTab(null)}>
-                        <div className={clsx(styles.iconWrapper, "bg-orange-500/10 text-orange-500")}>
+                        <div className={clsx(styles.iconWrapper, styles.iconOrange)}>
                           <Briefcase size={16} />
                         </div>
                         <div>
@@ -401,7 +405,7 @@ export function Header() {
                       </Link>
  
                       <Link to="/global-delivery" className={styles.menuItemLink} onClick={() => setActiveTab(null)}>
-                        <div className={clsx(styles.iconWrapper, "bg-accent-500/10 text-accent-500")}>
+                        <div className={clsx(styles.iconWrapper, styles.iconAccent)}>
                           <Globe size={16} />
                         </div>
                         <div>
@@ -409,7 +413,27 @@ export function Header() {
                           <p className={styles.menuItemDesc}>8 global offices and hybrid delivery centers spanning UK, USA, UAE, and APAC.</p>
                         </div>
                       </Link>
- 
+
+                      <Link to="/portfolio" className={styles.menuItemLink} onClick={() => setActiveTab(null)}>
+                        <div className={clsx(styles.iconWrapper, styles.iconOrange)}>
+                          <Layers size={16} />
+                        </div>
+                        <div>
+                          <div className={styles.menuItemTitle}>Project Portfolio</div>
+                          <p className={styles.menuItemDesc}>Projects delivered across application development, cloud, analytics, and automation.</p>
+                        </div>
+                      </Link>
+
+                      <Link to="/clients" className={styles.menuItemLink} onClick={() => setActiveTab(null)}>
+                        <div className={clsx(styles.iconWrapper, styles.iconAi)}>
+                          <Building2 size={16} />
+                        </div>
+                        <div>
+                          <div className={styles.menuItemTitle}>Client Portfolio</div>
+                          <p className={styles.menuItemDesc}>Enterprise clients we partner with, by industry.</p>
+                        </div>
+                      </Link>
+
                       <Link to="/contact" className={styles.menuItemLink} onClick={() => setActiveTab(null)}>
                         <div className={clsx(styles.iconWrapper, "bg-[#a855f7]/10 text-[#a855f7]")}>
                           <Mail size={16} />
@@ -428,12 +452,12 @@ export function Header() {
               {activeTab === 'services' && (
                 <div className={clsx(styles.explorePanel, styles.exploreServices)}>
                   <div>
-                    <span className="block font-mono text-[0.7rem] text-text-tertiary uppercase tracking-[0.08em] font-semibold">Featured Work</span>
+                    <span className={styles.eyebrowLabelSm}>Featured Work</span>
                     {renderFeaturedCaseStudies(caseStudies.slice(0, 2))}
                   </div>
                   <Link
                     to="/case-studies"
-                    className="inline-flex items-center gap-1 text-[0.8rem] font-semibold text-accent-600 hover:text-accent-700 mt-4 self-start"
+                    className={clsx("inline-flex items-center gap-1 text-[0.8rem] font-semibold mt-4 self-start", styles.exploreLinkAccent)}
                     onClick={() => setActiveTab(null)}
                   >
                     View all case studies{" "}
@@ -447,12 +471,12 @@ export function Header() {
               {activeTab === 'industries' && (
                 <div className={clsx(styles.explorePanel, styles.exploreIndustries)}>
                   <div>
-                    <span className="block font-mono text-[0.7rem] text-text-tertiary uppercase tracking-[0.08em] font-semibold">Featured Success</span>
+                    <span className={styles.eyebrowLabelSm}>Featured Success</span>
                     {renderFeaturedCaseStudies(caseStudies.slice(1, 3))}
                   </div>
                   <Link
                     to="/case-studies"
-                    className="inline-flex items-center gap-1 text-[0.8rem] font-semibold text-ai-600 hover:text-ai-700 mt-4 self-start"
+                    className={clsx("inline-flex items-center gap-1 text-[0.8rem] font-semibold mt-4 self-start", styles.exploreLinkAi)}
                     onClick={() => setActiveTab(null)}
                   >
                     View all case studies{" "}
@@ -466,8 +490,8 @@ export function Header() {
               {activeTab === 'company' && (
                 <div className={clsx(styles.explorePanel, styles.exploreCompany)}>
                   <div>
-                    <span className="block font-mono text-[0.7rem] text-text-tertiary uppercase tracking-[0.08em] font-semibold">Global Presence</span>
-                    <p className="text-[0.825rem] text-text-secondary leading-[1.5] mt-3">
+                    <span className={styles.eyebrowLabelSm}>Global Presence</span>
+                    <p className={clsx("text-[0.825rem] leading-[1.5] mt-3", styles.explorePanelText)}>
                       Natobotics operates hybrid delivery centers spanning the UK, Europe, USA, UAE, and APAC with 8 offices worldwide.
                     </p>
                     <div className="flex items-center justify-center p-5 bg-orange-500/5 border border-orange-500/10 rounded-xl my-4">
@@ -476,7 +500,7 @@ export function Header() {
                   </div>
                   <Link
                     to="/global-delivery"
-                    className="inline-flex items-center gap-1 text-[0.8rem] font-semibold text-orange-500 hover:text-orange-600 mt-4 self-start"
+                    className={clsx("inline-flex items-center gap-1 text-[0.8rem] font-semibold mt-4 self-start", styles.exploreLinkOrange)}
                     onClick={() => setActiveTab(null)}
                   >
                     View locations{" "}
@@ -527,35 +551,37 @@ export function Header() {
  
       {/* Mobile Drawer */}
       {menuOpen && (
-        <div className="fixed top-[76px] left-0 right-0 bottom-0 bg-bg-base z-overlay border-t border-border-subtle flex">
+        <div className={styles.mobileDrawer}>
           <div className="w-full overflow-y-auto px-gutter py-5 flex flex-col">
-            <span className="font-mono text-caption text-text-tertiary uppercase tracking-[0.05em] mb-2">Services</span>
+            <span className={styles.drawerSectionLabel}>Services</span>
             {services.slice(0, 6).map((link) => (
-              <NavLink key={link.slug} to={`/services/${link.slug}`} className="py-3 text-text-secondary border-b border-border-subtle text-body-sm hover:text-text-primary" onClick={() => setMenuOpen(false)}>
+              <NavLink key={link.slug} to={`/services/${link.slug}`} className={styles.drawerLink} onClick={() => setMenuOpen(false)}>
                 {link.name}
               </NavLink>
             ))}
- 
-            <span className="font-mono text-caption text-text-tertiary uppercase tracking-[0.05em] mb-2 mt-4">Technologies</span>
+
+            <span className={styles.drawerSectionLabel}>Technologies</span>
             {services.slice(6).map((link) => (
-              <NavLink key={link.slug} to={`/services/${link.slug}`} className="py-3 text-text-secondary border-b border-border-subtle text-body-sm hover:text-text-primary" onClick={() => setMenuOpen(false)}>
+              <NavLink key={link.slug} to={`/services/${link.slug}`} className={styles.drawerLink} onClick={() => setMenuOpen(false)}>
                 {link.name}
               </NavLink>
             ))}
- 
-            <span className="font-mono text-caption text-text-tertiary uppercase tracking-[0.05em] mb-2 mt-4">Industries</span>
+
+            <span className={styles.drawerSectionLabel}>Industries</span>
             {industries.map((link) => (
-              <NavLink key={link.slug} to={`/industries/${link.slug}`} className="py-3 text-text-secondary border-b border-border-subtle text-body-sm hover:text-text-primary" onClick={() => setMenuOpen(false)}>
+              <NavLink key={link.slug} to={`/industries/${link.slug}`} className={styles.drawerLink} onClick={() => setMenuOpen(false)}>
                 {link.name}
               </NavLink>
             ))}
- 
-            <span className="font-mono text-caption text-text-tertiary uppercase tracking-[0.05em] mb-2 mt-4">Company</span>
-            <Link to="/about-natobotics.html" className="py-3 text-text-secondary border-b border-border-subtle text-body-sm hover:text-text-primary" onClick={() => setMenuOpen(false)}>About Natobotics</Link>
-            <NavLink to="/global-delivery" className="py-3 text-text-secondary border-b border-border-subtle text-body-sm hover:text-text-primary" onClick={() => setMenuOpen(false)}>Global Delivery</NavLink>
-            <NavLink to="/company/careers" className="py-3 text-text-secondary border-b border-border-subtle text-body-sm hover:text-text-primary" onClick={() => setMenuOpen(false)}>Careers</NavLink>
-            <NavLink to="/case-studies" className="py-3 text-text-secondary border-b border-border-subtle text-body-sm hover:text-text-primary" onClick={() => setMenuOpen(false)}>Case Studies</NavLink>
-            <NavLink to="/contact" className="py-3 text-text-secondary border-b border-border-subtle text-body-sm hover:text-text-primary" onClick={() => setMenuOpen(false)}>Contact</NavLink>
+
+            <span className={styles.drawerSectionLabel}>Company</span>
+            <Link to="/about-natobotics.html" className={styles.drawerLink} onClick={() => setMenuOpen(false)}>About Natobotics</Link>
+            <NavLink to="/global-delivery" className={styles.drawerLink} onClick={() => setMenuOpen(false)}>Global Delivery</NavLink>
+            <NavLink to="/company/careers" className={styles.drawerLink} onClick={() => setMenuOpen(false)}>Careers</NavLink>
+            <NavLink to="/case-studies" className={styles.drawerLink} onClick={() => setMenuOpen(false)}>Case Studies</NavLink>
+            <NavLink to="/portfolio" className={styles.drawerLink} onClick={() => setMenuOpen(false)}>Project Portfolio</NavLink>
+            <NavLink to="/clients" className={styles.drawerLink} onClick={() => setMenuOpen(false)}>Client Portfolio</NavLink>
+            <NavLink to="/contact" className={styles.drawerLink} onClick={() => setMenuOpen(false)}>Contact</NavLink>
           </div>
         </div>
       )}

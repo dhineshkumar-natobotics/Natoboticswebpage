@@ -1,0 +1,67 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-6);
+  margin-bottom: var(--space-8);
+}
+
+.tierCard {
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.tierDesc {
+  color: var(--color-text-secondary);
+  font-size: var(--fs-body-sm);
+  line-height: 1.55;
+}
+
+.partnerList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  border-top: 1px solid var(--color-border-subtle);
+  padding-top: var(--space-4);
+}
+
+.partnerList li {
+  font-size: var(--fs-body-sm);
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.ctaBanner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-6);
+  padding: var(--space-7);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg-inset);
+}
+
+.ctaTitle {
+  font-size: var(--fs-h3);
+  margin-bottom: var(--space-2);
+}
+
+.ctaDesc {
+  color: var(--color-text-secondary);
+  max-width: 480px;
+}
+
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+  .ctaBanner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

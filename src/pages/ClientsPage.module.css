@@ -1,0 +1,57 @@
+.industryGroup {
+  margin-bottom: var(--space-8);
+}
+
+.industryGroup:last-child {
+  margin-bottom: 0;
+}
+
+.industryHeading {
+  font-size: var(--fs-h3);
+  margin-bottom: var(--space-5);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-6);
+}
+
+.clientCard {
+  padding: var(--space-6);
+  height: 100%;
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+.name {
+  font-size: var(--fs-h4);
+}
+
+.quote {
+  color: var(--color-text-secondary);
+  font-size: var(--fs-body);
+  line-height: 1.6;
+  font-style: italic;
+  margin-bottom: var(--space-3);
+}
+
+.contact {
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+  color: var(--color-text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
