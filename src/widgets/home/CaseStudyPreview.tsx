@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
-import { Container } from '../../components/ui/Container';
-import { Section } from '../../components/ui/Section';
-import { Reveal } from '../../components/ui/Reveal';
+import { Container } from '../../components/ui/Container/Container';
+import { Section } from '../../components/ui/Section/Section';
+import { Reveal } from '../../components/ui/Reveal/Reveal';
 import { caseStudies } from '../../data/caseStudies';
 import { FiPlus, FiArrowRight } from 'react-icons/fi';
 

@@ -1,5 +1,5 @@
-import { Container } from '../../components/ui/Container';
-import { Reveal } from '../../components/ui/Reveal';
+import { Container } from '../../components/ui/Container/Container';
+import { Reveal } from '../../components/ui/Reveal/Reveal';
 import styles from './TrustBar.module.css';
 
 const SECTORS = ['Insurance', 'Banking', 'Energy', 'Healthcare', 'Telecommunications', 'Manufacturing'];

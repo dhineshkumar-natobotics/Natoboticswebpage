@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Container } from '../../components/ui/Container';
+import { Container } from '../../components/ui/Container/Container';
 import { services } from '../../data/services';
 import { industries } from '../../data/industries';
 import styles from './Footer.module.css';
@@ -34,27 +34,12 @@ const XIcon = () => (
   </svg>
 );
 
-// Custom Natobotics stylized geometric LogoMark SVG
-const LogoMarkSVG = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" className={styles.logoSvg}>
-    {/* Geometric digital transformation horse icon inspired by TwelveLabs logo style */}
-    <rect x="10" y="50" width="10" height="8" rx="2" fill="var(--color-orange-500)" />
-    <rect x="20" y="42" width="12" height="8" rx="2" fill="var(--color-accent-500)" />
-    <rect x="20" y="50" width="15" height="8" rx="2" fill="var(--color-text-primary)" />
-    <rect x="32" y="34" width="18" height="8" rx="2" fill="var(--color-accent-500)" />
-    <rect x="35" y="42" width="20" height="8" rx="2" fill="var(--color-text-primary)" />
-    <rect x="35" y="50" width="15" height="8" rx="2" fill="var(--color-text-primary)" />
-    <rect x="47" y="26" width="15" height="8" rx="2" fill="var(--color-orange-500)" />
-    <rect x="50" y="34" width="25" height="8" rx="2" fill="var(--color-text-primary)" />
-    <rect x="55" y="42" width="10" height="8" rx="2" fill="var(--color-text-primary)" />
-    <rect x="68" y="18" width="8" height="8" rx="2" fill="var(--color-accent-500)" />
-    <rect x="75" y="26" width="15" height="8" rx="2" fill="var(--color-text-primary)" />
-    <rect x="62" y="34" width="10" height="8" rx="2" fill="var(--color-text-primary)" />
-    <rect x="15" y="58" width="8" height="12" rx="2" fill="var(--color-text-primary)" />
-    <rect x="30" y="58" width="8" height="12" rx="2" fill="var(--color-text-primary)" />
-    <rect x="50" y="58" width="8" height="12" rx="2" fill="var(--color-text-primary)" />
-    <rect x="80" y="34" width="8" height="12" rx="2" fill="var(--color-text-primary)" />
-  </svg>
+const LogoMark = () => (
+  <img
+    src="/natobotics-logo.png"
+    alt="Natobotics"
+    className={styles.logoImg}
+  />
 );
 
 export function Footer() {
@@ -192,7 +177,7 @@ export function Footer() {
         {/* Massive Brand Logo Section inspired by mockup */}
         <div className={styles.logoBannerContainer}>
           <div className={styles.logoRow}>
-            <LogoMarkSVG />
+            <LogoMark />
             <span className={styles.hugeBrandText}>Natobotics</span>
           </div>
         </div>

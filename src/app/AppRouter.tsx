@@ -1,26 +1,26 @@
 import { Routes, Route } from 'react-router-dom';
 import { RootLayout } from './RootLayout';
 import { ScrollToTop } from './ScrollToTop';
-import { HomePage } from '../pages/HomePage';
-import { AboutPage } from '../pages/AboutPage';
-import { ServicesPage, ServiceDetailPage } from '../pages/ServicesPage';
-import { IndustriesPage, IndustryDetailPage } from '../pages/IndustriesPage';
-import { CaseStudiesPage, CaseStudyDetailPage } from '../pages/CaseStudiesPage';
-import { GlobalDeliveryPage } from '../pages/GlobalDeliveryPage';
-import { CareersPage } from '../pages/CareersPage';
-import { JobDetailPage } from '../pages/JobDetailPage';
-import { ContactPage } from '../pages/ContactPage';
-import { NotFoundPage } from '../pages/NotFoundPage';
-import { TeamPage } from '../pages/TeamPage';
-import { BlogPage } from '../pages/BlogPage';
-import { WhitepapersPage } from '../pages/WhitepapersPage';
-import { FaqPage } from '../pages/FaqPage';
-import { PortfolioPage } from '../pages/PortfolioPage';
-import { ClientsPage } from '../pages/ClientsPage';
-import { PressPage } from '../pages/PressPage';
-import { PartnersPage } from '../pages/PartnersPage';
-import { PrivacyPage } from '../pages/PrivacyPage';
-import { TermsPage } from '../pages/TermsPage';
+import { HomePage } from '../pages/HomePage/HomePage';
+import { AboutPage } from '../pages/AboutPage/AboutPage';
+import { ServicesPage, ServiceDetailPage } from '../pages/ServicesPage/ServicesPage';
+import { IndustriesPage, IndustryDetailPage } from '../pages/IndustriesPage/IndustriesPage';
+import { CaseStudiesPage, CaseStudyDetailPage } from '../pages/CaseStudiesPage/CaseStudiesPage';
+import { GlobalDeliveryPage } from '../pages/GlobalDeliveryPage/GlobalDeliveryPage';
+import { CareersPage } from '../pages/CareersPage/CareersPage';
+import { JobDetailPage } from '../pages/JobDetailPage/JobDetailPage';
+import { ContactPage } from '../pages/ContactPage/ContactPage';
+import { NotFoundPage } from '../pages/NotFoundPage/NotFoundPage';
+import { TeamPage } from '../pages/TeamPage/TeamPage';
+import { BlogPage } from '../pages/BlogPage/BlogPage';
+import { WhitepapersPage } from '../pages/WhitepapersPage/WhitepapersPage';
+import { FaqPage } from '../pages/FaqPage/FaqPage';
+import { PortfolioPage } from '../pages/PortfolioPage/PortfolioPage';
+import { ClientsPage } from '../pages/ClientsPage/ClientsPage';
+import { PressPage } from '../pages/PressPage/PressPage';
+import { PartnersPage } from '../pages/PartnersPage/PartnersPage';
+import { PrivacyPage } from '../pages/PrivacyPage/PrivacyPage';
+import { TermsPage } from '../pages/TermsPage/TermsPage';
 
 export function AppRouter() {
   return (

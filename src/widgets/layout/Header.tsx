@@ -1,45 +1,27 @@
 import { useEffect, useState, useRef } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
-import { Layers, Cpu, Building2, Info, Briefcase, Globe, Mail } from 'lucide-react';
-import { Container } from '../../components/ui/Container';
-import { Button } from '../../components/ui/Button';
+import { Layers, Cpu, Building2, Info, Briefcase, Globe, Mail, BriefcaseBusiness, FileText, MapPin } from 'lucide-react';
+import { Container } from '../../components/ui/Container/Container';
+import { Button } from '../../components/ui/Button/Button';
 import { services } from '../../data/services';
 import { industries } from '../../data/industries';
 import { caseStudies } from '../../data/caseStudies';
+import { jobs } from '../../data/jobs';
 import clsx from 'clsx';
 import styles from './Header.module.css';
 
-const LogoMarkSVG = ({ className, homeTransparent }: { className?: string; homeTransparent?: boolean }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" className={className} style={{ width: '24px', height: '24px' }}>
-    {/* Geometric digital transformation horse icon */}
-    <rect x="10" y="50" width="10" height="8" rx="2" fill="var(--color-orange-500)" />
-    <rect x="20" y="42" width="12" height="8" rx="2" fill="var(--color-accent-500)" />
-    <rect x="20" y="50" width="15" height="8" rx="2" fill={homeTransparent ? "#ffffff" : "var(--color-text-primary)"} />
-    <rect x="32" y="34" width="18" height="8" rx="2" fill="var(--color-accent-500)" />
-    <rect x="35" y="42" width="20" height="8" rx="2" fill={homeTransparent ? "#ffffff" : "var(--color-text-primary)"} />
-    <rect x="35" y="50" width="15" height="8" rx="2" fill={homeTransparent ? "#ffffff" : "var(--color-text-primary)"} />
-    <rect x="47" y="26" width="15" height="8" rx="2" fill="var(--color-orange-500)" />
-    <rect x="50" y="34" width="25" height="8" rx="2" fill={homeTransparent ? "#ffffff" : "var(--color-text-primary)"} />
-    <rect x="55" y="42" width="10" height="8" rx="2" fill={homeTransparent ? "#ffffff" : "var(--color-text-primary)"} />
-    <rect x="68" y="18" width="8" height="8" rx="2" fill="var(--color-accent-500)" />
-    <rect x="75" y="26" width="15" height="8" rx="2" fill={homeTransparent ? "#ffffff" : "var(--color-text-primary)"} />
-    <rect x="62" y="34" width="10" height="8" rx="2" fill={homeTransparent ? "#ffffff" : "var(--color-text-primary)"} />
-    <rect x="15" y="58" width="8" height="12" rx="2" fill={homeTransparent ? "#ffffff" : "var(--color-text-primary)"} />
-    <rect x="30" y="58" width="8" height="12" rx="2" fill={homeTransparent ? "#ffffff" : "var(--color-text-primary)"} />
-    <rect x="50" y="58" width="8" height="12" rx="2" fill={homeTransparent ? "#ffffff" : "var(--color-text-primary)"} />
-    <rect x="80" y="34" width="8" height="12" rx="2" fill={homeTransparent ? "#ffffff" : "var(--color-text-primary)"} />
-  </svg>
-);
- 
+type MenuPanel = 'services' | 'industries' | 'company' | 'careers' | 'case-studies' | 'global-delivery';
+
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState<'services' | 'industries' | 'company' | null>(null);
+  const [megaOpen, setMegaOpen] = useState(false);
+  const [activePanel, setActivePanel] = useState<MenuPanel>('services');
   const closeTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
   const location = useLocation();
   const isHome = location.pathname === '/';
- 
+
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
     window.addEventListener('scroll', onScroll);
@@ -47,86 +29,74 @@ export function Header() {
   }, []);
 
   useEffect(() => {
-    setActiveTab(null);
+    setMegaOpen(false);
+    setActivePanel('services');
     setMenuOpen(false);
   }, [location]);
- 
-  const handleMouseEnter = (tab: 'services' | 'industries' | 'company') => {
+
+  const handleNavEnter = () => {
     if (closeTimeout.current) {
       clearTimeout(closeTimeout.current);
       closeTimeout.current = null;
     }
-    setActiveTab(tab);
+    setMegaOpen(true);
   };
- 
-  const handleMouseLeave = () => {
+
+  const handleNavLeave = () => {
     closeTimeout.current = setTimeout(() => {
-      setActiveTab(null);
-    }, 350);
+      setMegaOpen(false);
+    }, 200);
   };
- 
+
   const clearCloseTimeout = () => {
     if (closeTimeout.current) {
       clearTimeout(closeTimeout.current);
       closeTimeout.current = null;
     }
   };
- 
-  const showSolidBg = !isHome || scrolled || activeTab || menuOpen;
-  const homeTransparent = isHome && !scrolled && !activeTab && !menuOpen;
 
-  const renderFeaturedCaseStudies = (casesList: typeof caseStudies) => {
-    return (
-      <div className={styles.featuredCaseList}>
-        {casesList.map((cs) => (
-          <Link
-            key={cs.slug}
-            to="/case-studies"
-            className={styles.featuredCaseItem}
-            onClick={() => setActiveTab(null)}
-          >
-            <img src={cs.image} alt={cs.title} className={styles.caseThumb} />
-            <div className={styles.caseMeta}>
-              <span className={styles.caseClient}>{cs.client}</span>
-              <span className={styles.caseTitle}>{cs.title}</span>
-            </div>
-          </Link>
-        ))}
-      </div>
-    );
-  };
- 
+  const showSolidBg = !isHome || scrolled || megaOpen || menuOpen;
+  const homeTransparent = isHome && !scrolled && !megaOpen && !menuOpen;
+
+  const NAV_ITEMS: { key: MenuPanel; label: string }[] = [
+    { key: 'services', label: 'Services' },
+    { key: 'industries', label: 'Industries' },
+    { key: 'company', label: 'Company' },
+    { key: 'careers', label: 'Careers' },
+    { key: 'case-studies', label: 'Case Studies' },
+    { key: 'global-delivery', label: 'Global Delivery' },
+  ];
+
   return (
     <header
       className={clsx(
-        "fixed top-0 left-0 right-0 z-sticky-nav border-b border-transparent bg-transparent transition-[background-color,border-color] duration-base ease-out-expo",
+        "fixed top-0 left-0 right-0 z-sticky-nav border-b transition-[background-color,border-color] duration-base ease-out-expo",
+        homeTransparent
+          ? "bg-transparent backdrop-blur-none border-transparent"
+          : "bg-transparent border-transparent",
         showSolidBg && clsx("border-b", styles.headerSolid)
       )}
     >
       <Container className="flex items-center justify-between h-[76px]">
         <Link
           to="/"
-          className={clsx("flex items-center gap-[10px] font-bold text-[1.15rem] tracking-tight transition-opacity duration-fast ease-out-expo hover:opacity-90", styles.wordmarkText)}
-          onMouseEnter={handleMouseLeave}
+          className={clsx("flex items-center gap-[10px] font-bold text-[1.15rem] tracking-tight transition-colors duration-fast ease-out-expo hover:opacity-90", homeTransparent ? styles.wordmarkTextTransparent : styles.wordmarkText)}
+          onMouseEnter={handleNavLeave}
         >
-          <LogoMarkSVG
+          <img
+            src="/natobotics-logo.png"
+            alt="Natobotics"
             className={clsx(
-              "transition-all duration-fast",
+              "w-[32px] h-[32px] rounded object-contain transition-all duration-fast",
               homeTransparent ? "drop-shadow-[0_0_8px_rgba(255,255,255,0.45)]" : "drop-shadow-[0_0_8px_rgba(255,111,60,0.3)]"
             )}
-            homeTransparent={homeTransparent}
           />
-          <span
-            className={clsx(
-              "bg-gradient-to-r bg-clip-text text-transparent text-[1.25rem]",
-              homeTransparent ? "from-white to-[#dcdcdc]" : "from-black to-[#4b4f54]"
-            )}
-            style={{ fontFamily: 'var(--font-display)' }}
-          >
-            Natobotics
-          </span>
+          <span className={clsx(
+            "transition-colors duration-fast",
+            homeTransparent ? "text-white" : styles.wordmarkTextColor
+          )}>Natobotics</span>
         </Link>
- 
+
         <nav
           className={clsx(
             styles.navCapsule,
@@ -134,27 +104,25 @@ export function Header() {
             styles.navCapsuleResponsive
           )}
           aria-label="Primary"
-          onMouseLeave={handleMouseLeave}
+          onMouseEnter={handleNavEnter}
+          onMouseLeave={handleNavLeave}
         >
-          {/* Services Link & Menu */}
-          <div
-            className="group relative flex items-center h-[40px]"
-            onMouseEnter={() => handleMouseEnter('services')}
-            onMouseLeave={handleMouseLeave}
-          >
+          {NAV_ITEMS.map((item) => (
             <button
-              onClick={() => setActiveTab(activeTab === 'services' ? null : 'services')}
+              key={item.key}
+              onMouseEnter={() => setActivePanel(item.key)}
+              onClick={() => setMegaOpen(megaOpen && activePanel === item.key ? false : true)}
               className={clsx(
                 styles.navItem,
                 homeTransparent && styles.navItemTransparent,
-                activeTab === 'services' && (homeTransparent ? styles.navItemActiveTransparent : styles.navItemActive)
+                megaOpen && activePanel === item.key && (homeTransparent ? styles.navItemActiveTransparent : styles.navItemActive)
               )}
             >
-              Services{" "}
+              {item.label}
               <svg
                 className={clsx(
                   "w-2.5 h-2.5 opacity-60 transition-transform duration-fast ease-out-expo",
-                  activeTab === 'services' && "rotate-180",
+                  megaOpen && activePanel === item.key && "rotate-180",
                   homeTransparent ? "text-white" : styles.chevronSecondary
                 )}
                 viewBox="0 0 8 8"
@@ -163,100 +131,14 @@ export function Header() {
                 <path d="M1 3L4 6L7 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </button>
-          </div>
- 
-          {/* Industries Link & Menu */}
-          <div
-            className="group relative flex items-center h-[40px]"
-            onMouseEnter={() => handleMouseEnter('industries')}
-            onMouseLeave={handleMouseLeave}
-          >
-            <button
-              onClick={() => setActiveTab(activeTab === 'industries' ? null : 'industries')}
-              className={clsx(
-                styles.navItem,
-                homeTransparent && styles.navItemTransparent,
-                activeTab === 'industries' && (homeTransparent ? styles.navItemActiveTransparent : styles.navItemActive)
-              )}
-            >
-              Industries{" "}
-              <svg
-                className={clsx(
-                  "w-2.5 h-2.5 opacity-60 transition-transform duration-fast ease-out-expo",
-                  activeTab === 'industries' && "rotate-180",
-                  homeTransparent ? "text-white" : styles.chevronSecondary
-                )}
-                viewBox="0 0 8 8"
-                fill="none"
-              >
-                <path d="M1 3L4 6L7 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </button>
-          </div>
- 
-          {/* Company Link & Menu */}
-          <div
-            className="group relative flex items-center h-[40px]"
-            onMouseEnter={() => handleMouseEnter('company')}
-            onMouseLeave={handleMouseLeave}
-          >
-            <button
-              onClick={() => setActiveTab(activeTab === 'company' ? null : 'company')}
-              className={clsx(
-                styles.navItem,
-                homeTransparent && styles.navItemTransparent,
-                activeTab === 'company' && (homeTransparent ? styles.navItemActiveTransparent : styles.navItemActive)
-              )}
-            >
-              Company{" "}
-              <svg
-                className={clsx(
-                  "w-2.5 h-2.5 opacity-60 transition-transform duration-fast ease-out-expo",
-                  activeTab === 'company' && "rotate-180",
-                  homeTransparent ? "text-white" : styles.chevronSecondary
-                )}
-                viewBox="0 0 8 8"
-                fill="none"
-              >
-                <path d="M1 3L4 6L7 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </button>
-          </div>
- 
-          <NavLink
-            to="/case-studies"
-            className={({ isActive }) =>
-              clsx(
-                styles.navItem,
-                homeTransparent && styles.navItemTransparent,
-                isActive && (homeTransparent ? styles.navItemActiveTransparent : styles.navItemActive)
-              )
-            }
-            onMouseEnter={handleMouseLeave}
-          >
-            Case Studies
-          </NavLink>
- 
-          <NavLink
-            to="/global-delivery"
-            className={({ isActive }) =>
-              clsx(
-                styles.navItem,
-                homeTransparent && styles.navItemTransparent,
-                isActive && (homeTransparent ? styles.navItemActiveTransparent : styles.navItemActive)
-              )
-            }
-            onMouseEnter={handleMouseLeave}
-          >
-            Global Delivery
-          </NavLink>
+          ))}
         </nav>
- 
-        <div className="flex items-center gap-3" onMouseEnter={handleMouseLeave}>
+
+        <div className="flex items-center gap-2" onMouseEnter={handleNavLeave}>
           <span className="hidden lg:inline-flex">
             <Button
               to="/contact"
-              size="md"
+              size="sm"
               variant="secondary"
               className={
                 homeTransparent
@@ -268,7 +150,7 @@ export function Header() {
             </Button>
           </span>
           <span className="hidden lg:inline-flex">
-            <Button to="/contact" size="md" variant="orange">
+            <Button to="/contact" size="sm" variant="orange">
               Start a project
             </Button>
           </span>
@@ -295,260 +177,260 @@ export function Header() {
           </button>
         </div>
       </Container>
- 
-      {/* Mega Dropdown Panel */}
+
+      {/* ───── Split-Pane Mega Menu ───── */}
       <AnimatePresence>
-        {activeTab && (
+        {megaOpen && (
           <motion.div
-            className={styles.dropdownCard}
-            initial={{ opacity: 0, y: 8, scale: 0.99, x: "-50%" }}
-            animate={{ opacity: 1, y: 0, scale: 1, x: "-50%" }}
-            exit={{ opacity: 0, y: 6, scale: 0.99, x: "-50%" }}
+            className={styles.megaDropdown}
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 6 }}
             transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
             onMouseEnter={clearCloseTimeout}
-            onMouseLeave={handleMouseLeave}
+            onMouseLeave={handleNavLeave}
           >
-            <div className={styles.megamenuGrid}>
-              <div className={styles.leftContent}>
-                {activeTab === 'services' && (
-                  <div>
-                    <span className={styles.eyebrowLabel}>Core Services & Technologies</span>
-                    <div className={styles.menuItemsGrid}>
-                      <div className="flex flex-col gap-2">
-                        <span className={styles.eyebrowLabelSm}>Services</span>
-                        {services.slice(0, 6).map((service) => (
-                          <Link
-                            key={service.slug}
-                            to={`/services/${service.slug}`}
-                            className={styles.menuItemLink}
-                            onClick={() => setActiveTab(null)}
-                          >
-                            <div className={clsx(styles.iconWrapper, styles.iconAccent)}>
-                              <Layers size={16} />
-                            </div>
-                            <div>
-                              <div className={styles.menuItemTitle}>{service.name}</div>
-                              <p className={styles.menuItemDesc}>{service.summary}</p>
-                            </div>
-                          </Link>
-                        ))}
-                      </div>
-                      <div className="flex flex-col gap-2">
-                        <span className={styles.eyebrowLabelSm}>Technologies</span>
-                        {services.slice(6).map((tech) => (
-                          <Link
-                            key={tech.slug}
-                            to={`/services/${tech.slug}`}
-                            className={styles.menuItemLink}
-                            onClick={() => setActiveTab(null)}
-                          >
-                            <div className={clsx(styles.iconWrapper, styles.iconOrange)}>
-                              <Cpu size={16} />
-                            </div>
-                            <div>
-                              <div className={styles.menuItemTitle}>{tech.name}</div>
-                              <p className={styles.menuItemDesc}>{tech.summary}</p>
-                            </div>
-                          </Link>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                )}
- 
-                {activeTab === 'industries' && (
-                  <div>
-                    <span className={styles.eyebrowLabel}>Industries We Serve</span>
-                    <div className={styles.menuItemsGrid}>
-                      {industries.map((ind) => (
-                        <Link
-                          key={ind.slug}
-                          to={`/industries/${ind.slug}`}
-                          className={styles.menuItemLink}
-                          onClick={() => setActiveTab(null)}
-                        >
-                          <div className={clsx(styles.iconWrapper, styles.iconAi)}>
-                            <Building2 size={16} />
-                          </div>
-                          <div>
-                            <div className={styles.menuItemTitle}>{ind.name}</div>
-                            <p className={styles.menuItemDesc}>{ind.summary}</p>
-                          </div>
+            <Container className={styles.megaInner}>
+              {/* Left: Master List */}
+              <div className={styles.megaLeft}>
+                {NAV_ITEMS.map((item) => (
+                  <button
+                    key={item.key}
+                    className={clsx(
+                      styles.megaLeftItem,
+                      activePanel === item.key && styles.megaLeftItemActive
+                    )}
+                    onMouseEnter={() => setActivePanel(item.key)}
+                    onClick={() => {
+                      if (item.key === 'case-studies' || item.key === 'global-delivery') {
+                        setMegaOpen(false);
+                      }
+                    }}
+                  >
+                    <span className={styles.megaLeftLabel}>{item.label}</span>
+                    <svg className={clsx(styles.megaLeftArrow, activePanel === item.key && styles.megaLeftArrowVisible)} width="14" height="14" viewBox="0 0 14 14" fill="none">
+                      <path d="M5 3l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </button>
+                ))}
+              </div>
+
+              {/* Right: Detail Preview */}
+              <div className={styles.megaRight}>
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={activePanel}
+                    initial={{ opacity: 0, x: 8 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -8 }}
+                    transition={{ duration: 0.15, ease: [0.16, 1, 0.3, 1] }}
+                    className={styles.megaRightContent}
+                  >
+                    {activePanel === 'services' && (
+                      <>
+                        <span className={styles.megaPanelLabel}>Core Services & Technologies</span>
+                        <div className={styles.megaPanelGrid}>
+                          {services.slice(0, 4).map((s) => (
+                            <Link key={s.slug} to={`/services/${s.slug}`} className={styles.megaPanelLink} onClick={() => setMegaOpen(false)}>
+                              <div className={clsx(styles.megaPanelIcon, styles.iconAccent)}><Layers size={13} /></div>
+                              <div>
+                                <div className={styles.megaPanelTitle}>{s.name}</div>
+                                <p className={styles.megaPanelDesc}>{s.summary}</p>
+                              </div>
+                            </Link>
+                          ))}
+                          {services.slice(4, 8).map((t) => (
+                            <Link key={t.slug} to={`/services/${t.slug}`} className={styles.megaPanelLink} onClick={() => setMegaOpen(false)}>
+                              <div className={clsx(styles.megaPanelIcon, styles.iconOrange)}><Cpu size={13} /></div>
+                              <div>
+                                <div className={styles.megaPanelTitle}>{t.name}</div>
+                                <p className={styles.megaPanelDesc}>{t.summary}</p>
+                              </div>
+                            </Link>
+                          ))}
+                        </div>
+                        <Link to="/services" className={styles.megaPanelCta} onClick={() => setMegaOpen(false)}>
+                          View all services →
                         </Link>
-                      ))}
-                    </div>
-                  </div>
-                )}
- 
-                {activeTab === 'company' && (
-                  <div>
-                    <span className={styles.eyebrowLabel}>Our Company</span>
-                    <div className={styles.menuItemsGrid}>
-                      <Link to="/about-natobotics.html" className={styles.menuItemLink} onClick={() => setActiveTab(null)}>
-                        <div className={clsx(styles.iconWrapper, styles.iconAi)}>
-                          <Info size={16} />
-                        </div>
-                        <div>
-                          <div className={styles.menuItemTitle}>About Natobotics</div>
-                          <p className={styles.menuItemDesc}>Global leader in digital services, transformation coaching, and process management.</p>
-                        </div>
-                      </Link>
- 
-                      <Link to="/company/careers" className={styles.menuItemLink} onClick={() => setActiveTab(null)}>
-                        <div className={clsx(styles.iconWrapper, styles.iconOrange)}>
-                          <Briefcase size={16} />
-                        </div>
-                        <div>
-                          <div className={styles.menuItemTitle}>Careers</div>
-                          <p className={styles.menuItemDesc}>Join our engineering community. Shape digital-first solutions at scale.</p>
-                        </div>
-                      </Link>
- 
-                      <Link to="/global-delivery" className={styles.menuItemLink} onClick={() => setActiveTab(null)}>
-                        <div className={clsx(styles.iconWrapper, styles.iconAccent)}>
-                          <Globe size={16} />
-                        </div>
-                        <div>
-                          <div className={styles.menuItemTitle}>Global Delivery</div>
-                          <p className={styles.menuItemDesc}>8 global offices and hybrid delivery centers spanning UK, USA, UAE, and APAC.</p>
-                        </div>
-                      </Link>
+                      </>
+                    )}
 
-                      <Link to="/portfolio" className={styles.menuItemLink} onClick={() => setActiveTab(null)}>
-                        <div className={clsx(styles.iconWrapper, styles.iconOrange)}>
-                          <Layers size={16} />
+                    {activePanel === 'industries' && (
+                      <>
+                        <span className={styles.megaPanelLabel}>Industries We Serve</span>
+                        <div className={styles.megaPanelGrid}>
+                          {industries.map((ind) => (
+                            <Link key={ind.slug} to={`/industries/${ind.slug}`} className={styles.megaPanelLink} onClick={() => setMegaOpen(false)}>
+                              <div className={clsx(styles.megaPanelIcon, styles.iconAi)}><Building2 size={13} /></div>
+                              <div>
+                                <div className={styles.megaPanelTitle}>{ind.name}</div>
+                                <p className={styles.megaPanelDesc}>{ind.summary}</p>
+                              </div>
+                            </Link>
+                          ))}
                         </div>
-                        <div>
-                          <div className={styles.menuItemTitle}>Project Portfolio</div>
-                          <p className={styles.menuItemDesc}>Projects delivered across application development, cloud, analytics, and automation.</p>
-                        </div>
-                      </Link>
+                      </>
+                    )}
 
-                      <Link to="/clients" className={styles.menuItemLink} onClick={() => setActiveTab(null)}>
-                        <div className={clsx(styles.iconWrapper, styles.iconAi)}>
-                          <Building2 size={16} />
+                    {activePanel === 'company' && (
+                      <>
+                        <span className={styles.megaPanelLabel}>Our Company</span>
+                        <div className={styles.megaPanelGrid}>
+                          <Link to="/about-natobotics.html" className={styles.megaPanelLink} onClick={() => setMegaOpen(false)}>
+                            <div className={clsx(styles.megaPanelIcon, styles.iconAi)}><Info size={13} /></div>
+                            <div>
+                              <div className={styles.megaPanelTitle}>About Natobotics</div>
+                              <p className={styles.megaPanelDesc}>Global leader in digital services and transformation.</p>
+                            </div>
+                          </Link>
+                          <Link to="/company/careers" className={styles.megaPanelLink} onClick={() => setMegaOpen(false)}>
+                            <div className={clsx(styles.megaPanelIcon, styles.iconOrange)}><Briefcase size={13} /></div>
+                            <div>
+                              <div className={styles.megaPanelTitle}>Careers</div>
+                              <p className={styles.megaPanelDesc}>Join our engineering community.</p>
+                            </div>
+                          </Link>
+                          <Link to="/portfolio" className={styles.megaPanelLink} onClick={() => setMegaOpen(false)}>
+                            <div className={clsx(styles.megaPanelIcon, styles.iconOrange)}><Layers size={13} /></div>
+                            <div>
+                              <div className={styles.megaPanelTitle}>Project Portfolio</div>
+                              <p className={styles.megaPanelDesc}>Projects delivered across cloud, analytics, and automation.</p>
+                            </div>
+                          </Link>
+                          <Link to="/clients" className={styles.megaPanelLink} onClick={() => setMegaOpen(false)}>
+                            <div className={clsx(styles.megaPanelIcon, styles.iconAi)}><Building2 size={13} /></div>
+                            <div>
+                              <div className={styles.megaPanelTitle}>Client Portfolio</div>
+                              <p className={styles.megaPanelDesc}>Enterprise clients we partner with.</p>
+                            </div>
+                          </Link>
+                          <Link to="/contact" className={styles.megaPanelLink} onClick={() => setMegaOpen(false)}>
+                            <div className={clsx(styles.megaPanelIcon, "bg-[#a855f7]/10 text-[#a855f7]")}><Mail size={13} /></div>
+                            <div>
+                              <div className={styles.megaPanelTitle}>Contact Support</div>
+                              <p className={styles.megaPanelDesc}>Speak with our technology consultants.</p>
+                            </div>
+                          </Link>
                         </div>
-                        <div>
-                          <div className={styles.menuItemTitle}>Client Portfolio</div>
-                          <p className={styles.menuItemDesc}>Enterprise clients we partner with, by industry.</p>
-                        </div>
-                      </Link>
+                      </>
+                    )}
 
-                      <Link to="/contact" className={styles.menuItemLink} onClick={() => setActiveTab(null)}>
-                        <div className={clsx(styles.iconWrapper, "bg-[#a855f7]/10 text-[#a855f7]")}>
-                          <Mail size={16} />
+                    {activePanel === 'careers' && (
+                      <>
+                        <span className={styles.megaPanelLabel}>Join Our Team</span>
+                        <div className={styles.megaPanelGrid}>
+                          {jobs.slice(0, 4).map((job) => (
+                            <Link key={job.slug} to={`/company/careers/${job.slug}`} className={styles.megaPanelLink} onClick={() => setMegaOpen(false)}>
+                              <div className={clsx(styles.megaPanelIcon, styles.iconOrange)}><Briefcase size={13} /></div>
+                              <div>
+                                <div className={styles.megaPanelTitle}>{job.title}</div>
+                                <p className={styles.megaPanelDesc}>{job.department} · {job.location}</p>
+                              </div>
+                            </Link>
+                          ))}
                         </div>
-                        <div>
-                          <div className={styles.menuItemTitle}>Contact Support</div>
-                          <p className={styles.menuItemDesc}>Speak with technology consultants about custom project estimations.</p>
+                        <Link to="/company/careers" className={styles.megaPanelCta} onClick={() => setMegaOpen(false)}>
+                          View all open roles →
+                        </Link>
+                      </>
+                    )}
+
+                    {activePanel === 'case-studies' && (
+                      <>
+                        <span className={styles.megaPanelLabel}>Featured Case Studies</span>
+                        <div className={styles.megaPanelGrid}>
+                          {caseStudies.slice(0, 4).map((cs) => (
+                            <Link key={cs.slug} to={`/case-studies`} className={styles.megaPanelLink} onClick={() => setMegaOpen(false)}>
+                              <div className={clsx(styles.megaPanelIcon, styles.iconAccent)}><FileText size={13} /></div>
+                              <div>
+                                <div className={styles.megaPanelTitle}>{cs.title}</div>
+                                <p className={styles.megaPanelDesc}>{cs.client} — {cs.summary}</p>
+                              </div>
+                            </Link>
+                          ))}
                         </div>
-                      </Link>
-                    </div>
-                  </div>
-                )}
+                        <Link to="/case-studies" className={styles.megaPanelCta} onClick={() => setMegaOpen(false)}>
+                          View all case studies →
+                        </Link>
+                      </>
+                    )}
+
+                    {activePanel === 'global-delivery' && (
+                      <>
+                        <span className={styles.megaPanelLabel}>Global Delivery</span>
+                        <div className={styles.megaPanelGrid}>
+                          <Link to="/global-delivery" className={styles.megaPanelLink} onClick={() => setMegaOpen(false)}>
+                            <div className={clsx(styles.megaPanelIcon, styles.iconAccent)}><Globe size={13} /></div>
+                            <div>
+                              <div className={styles.megaPanelTitle}>8 Global Offices</div>
+                              <p className={styles.megaPanelDesc}>Hybrid delivery centers across UK, USA, UAE, and APAC.</p>
+                            </div>
+                          </Link>
+                          <Link to="/global-delivery" className={styles.megaPanelLink} onClick={() => setMegaOpen(false)}>
+                            <div className={clsx(styles.megaPanelIcon, styles.iconOrange)}><MapPin size={13} /></div>
+                            <div>
+                              <div className={styles.megaPanelTitle}>Nearshore & Offshore</div>
+                              <p className={styles.megaPanelDesc}>Flexible engagement models to match your timezone.</p>
+                            </div>
+                          </Link>
+                          <Link to="/global-delivery" className={styles.megaPanelLink} onClick={() => setMegaOpen(false)}>
+                            <div className={clsx(styles.megaPanelIcon, styles.iconAi)}><BriefcaseBusiness size={13} /></div>
+                            <div>
+                              <div className={styles.megaPanelTitle}>KPO / BPO Operations</div>
+                              <p className={styles.megaPanelDesc}>Process outsourcing at scale across all regions.</p>
+                            </div>
+                          </Link>
+                        </div>
+                      </>
+                    )}
+                  </motion.div>
+                </AnimatePresence>
               </div>
- 
-              {/* Explore Panel (Right side) */}
-              {activeTab === 'services' && (
-                <div className={clsx(styles.explorePanel, styles.exploreServices)}>
-                  <div>
-                    <span className={styles.eyebrowLabelSm}>Featured Work</span>
-                    {renderFeaturedCaseStudies(caseStudies.slice(0, 2))}
-                  </div>
-                  <Link
-                    to="/case-studies"
-                    className={clsx("inline-flex items-center gap-1 text-[0.8rem] font-semibold mt-4 self-start", styles.exploreLinkAccent)}
-                    onClick={() => setActiveTab(null)}
-                  >
-                    View all case studies{" "}
-                    <svg className="w-3 h-3" fill="none" viewBox="0 0 12 12" stroke="currentColor" strokeWidth="2">
-                      <path d="M4 2l4 4-4 4" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  </Link>
-                </div>
+            </Container>
+
+            {/* Bottom CTA Banner */}
+            <div className={styles.megaBottomBanner}>
+              {activePanel === 'services' && (
+                <>
+                  <span className={styles.megaBannerText}>Need a custom solution? <strong>Talk to our technology consultants</strong>.</span>
+                  <Button to="/contact" size="sm" variant="orange">Book a call</Button>
+                </>
               )}
- 
-              {activeTab === 'industries' && (
-                <div className={clsx(styles.explorePanel, styles.exploreIndustries)}>
-                  <div>
-                    <span className={styles.eyebrowLabelSm}>Featured Success</span>
-                    {renderFeaturedCaseStudies(caseStudies.slice(1, 3))}
-                  </div>
-                  <Link
-                    to="/case-studies"
-                    className={clsx("inline-flex items-center gap-1 text-[0.8rem] font-semibold mt-4 self-start", styles.exploreLinkAi)}
-                    onClick={() => setActiveTab(null)}
-                  >
-                    View all case studies{" "}
-                    <svg className="w-3 h-3" fill="none" viewBox="0 0 12 12" stroke="currentColor" strokeWidth="2">
-                      <path d="M4 2l4 4-4 4" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  </Link>
-                </div>
+              {activePanel === 'industries' && (
+                <>
+                  <span className={styles.megaBannerText}>Looking to transform your operations? <strong>Speak with our domain experts</strong>.</span>
+                  <Button to="/contact" size="sm" variant="orange">Get in touch</Button>
+                </>
               )}
- 
-              {activeTab === 'company' && (
-                <div className={clsx(styles.explorePanel, styles.exploreCompany)}>
-                  <div>
-                    <span className={styles.eyebrowLabelSm}>Global Presence</span>
-                    <p className={clsx("text-[0.825rem] leading-[1.5] mt-3", styles.explorePanelText)}>
-                      Natobotics operates hybrid delivery centers spanning the UK, Europe, USA, UAE, and APAC with 8 offices worldwide.
-                    </p>
-                    <div className="flex items-center justify-center p-5 bg-orange-500/5 border border-orange-500/10 rounded-xl my-4">
-                      <Globe className="w-10 h-10 text-orange-500/70" />
-                    </div>
-                  </div>
-                  <Link
-                    to="/global-delivery"
-                    className={clsx("inline-flex items-center gap-1 text-[0.8rem] font-semibold mt-4 self-start", styles.exploreLinkOrange)}
-                    onClick={() => setActiveTab(null)}
-                  >
-                    View locations{" "}
-                    <svg className="w-3 h-3" fill="none" viewBox="0 0 12 12" stroke="currentColor" strokeWidth="2">
-                      <path d="M4 2l4 4-4 4" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  </Link>
-                </div>
+              {activePanel === 'company' && (
+                <>
+                  <span className={styles.megaBannerText}>Join our engineering community. <strong>We are actively hiring</strong>!</span>
+                  <Button to="/company/careers" size="sm" variant="orange">See open roles</Button>
+                </>
               )}
- 
-              {/* Bottom Banner */}
-              <div className={styles.bottomBanner}>
-                {activeTab === 'services' && (
-                  <>
-                    <span className={styles.bottomBannerText}>
-                      Need a custom solution? <strong>Talk to our technology consultants</strong> about estimations.
-                    </span>
-                    <Button to="/contact" size="md" variant="orange">
-                      Book a call
-                    </Button>
-                  </>
-                )}
-                {activeTab === 'industries' && (
-                  <>
-                    <span className={styles.bottomBannerText}>
-                      Looking to transform your operations? <strong>Speak with our domain experts</strong> today.
-                    </span>
-                    <Button to="/contact" size="md" variant="orange">
-                      Get in touch
-                    </Button>
-                  </>
-                )}
-                {activeTab === 'company' && (
-                  <>
-                    <span className={styles.bottomBannerText}>
-                      Join our engineering community. <strong>We are actively hiring</strong> across all offices!
-                    </span>
-                    <Button to="/company/careers" size="md" variant="orange">
-                      See open roles
-                    </Button>
-                  </>
-                )}
-              </div>
+              {activePanel === 'careers' && (
+                <>
+                  <span className={styles.megaBannerText}>We are growing across <strong>all offices and departments</strong>.</span>
+                  <Button to="/company/careers" size="sm" variant="orange">Apply now</Button>
+                </>
+              )}
+              {activePanel === 'case-studies' && (
+                <>
+                  <span className={styles.megaBannerText}>Want to see how we solve <strong>complex engineering challenges</strong>?</span>
+                  <Button to="/case-studies" size="sm" variant="orange">View all studies</Button>
+                </>
+              )}
+              {activePanel === 'global-delivery' && (
+                <>
+                  <span className={styles.megaBannerText}>Explore our <strong>8 global offices</strong> and delivery model.</span>
+                  <Button to="/global-delivery" size="sm" variant="orange">View locations</Button>
+                </>
+              )}
             </div>
           </motion.div>
         )}
       </AnimatePresence>
- 
+
       {/* Mobile Drawer */}
       {menuOpen && (
         <div className={styles.mobileDrawer}>

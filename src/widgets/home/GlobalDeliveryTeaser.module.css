@@ -53,7 +53,7 @@
 .officeDot {
   width: 7px;
   height: 7px;
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   background: var(--color-accent-400);
   flex-shrink: 0;
 }
@@ -78,7 +78,7 @@
 }
 
 .mapWrapper {
-  background: rgba(255, 255, 255, 0.45);
+  background: color-mix(in srgb, var(--color-text-inverse) 45%, transparent);
   backdrop-filter: blur(var(--blur-sm));
   -webkit-backdrop-filter: blur(var(--blur-sm));
   border: 2px solid var(--color-border-default);

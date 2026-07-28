@@ -51,6 +51,7 @@
   --fs-display-xl: clamp(2.75rem, 2.1rem + 3vw, 6rem);
   --fs-display-lg: clamp(2.25rem, 1.8rem + 2.2vw, 4.5rem);
   --fs-display-md: clamp(1.9rem, 1.6rem + 1.4vw, 3.5rem);
+  --fs-display-sm: clamp(1.5rem, 1.35rem + 0.6vw, 2rem);
   --fs-h1: clamp(1.75rem, 1.5rem + 1vw, 2.75rem);
   --fs-h2: clamp(1.5rem, 1.35rem + 0.6vw, 2rem);
   --fs-h3: 1.5rem;
@@ -80,6 +81,7 @@
   --radius-md: 4px;
   --radius-lg: 4px;
   --radius-xl: 8px;
+  --radius-2xl: 12px;
   --radius-full: 999px;
 
   /* ---- Elevation ---- */

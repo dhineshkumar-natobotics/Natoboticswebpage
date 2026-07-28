@@ -1,6 +1,20 @@
 import type { CaseStudyItem } from '../types';
 
-export const caseStudies: CaseStudyItem[] = [
+export interface MatrixTypes {
+  label: string | null;
+  value: string | null;
+}
+
+interface casestudiesTypes {
+  slug: string | null;
+  client: string | null;
+  industry: string | null;
+  metrics: Array<MatrixTypes>;
+  title: string;
+  summary: string;
+  image: string | number;
+}
+export const caseStudies: Array<casestudiesTypes> = [
   {
     slug: 'insurance-claims-automation',
     client: 'Tier-1 European Insurer',

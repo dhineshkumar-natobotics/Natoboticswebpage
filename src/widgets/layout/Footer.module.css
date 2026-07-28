@@ -39,7 +39,7 @@
 
 .heading {
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: var(--fs-caption);
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: var(--color-text-primary);
@@ -167,15 +167,17 @@
   max-width: 100%;
 }
 
-.logoSvg {
+.logoImg {
   width: 64px;
   height: 64px;
   flex-shrink: 0;
   display: block;
+  border-radius: var(--radius-xl);
+  object-fit: contain;
 }
 
 @media (min-width: 768px) {
-  .logoSvg {
+  .logoImg {
     width: 96px;
     height: 96px;
   }

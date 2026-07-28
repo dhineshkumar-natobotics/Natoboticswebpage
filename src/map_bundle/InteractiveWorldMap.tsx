@@ -13,7 +13,7 @@ const PULSE = '#4A7FE8';
 const LOCS = [
   { id: 'Canada', lon: -96, lat: 60, lx: 10, ly: -24, ta: 'start' },
   { id: 'USA', lon: -98, lat: 38, lx: 10, ly: 22, ta: 'start' },
-  { id: 'UK', lon: -3, lat: 54, lx: 10, ly: -24, ta: 'start' },
+  { id: 'UK', lon: -0, lat: 51, lx: 889, ly: 5973, ta: 'start' },
   { id: 'Europe', lon: 15, lat: 51, lx: 10, ly: 22, ta: 'start' },
   { id: 'UAE', lon: 55, lat: 25, lx: 10, ly: 22, ta: 'start' },
   { id: 'India', lon: 79, lat: 22, lx: 10, ly: -24, ta: 'start' },
@@ -215,7 +215,7 @@ export default function InteractiveWorldMap({ hoveredCountry, onLocationHover }:
         const g = pinsG.append('g')
           .attr('class', 'gcm-pin')
           .attr('data-location', loc.id)
-          .attr('transform', `translate(${sx},${sy}) scale(0)`) 
+          .attr('transform', `translate(${sx},${sy}) scale(0)`)
           .attr('opacity', 0)
           .attr('tabindex', '0')
           .attr('role', 'button')

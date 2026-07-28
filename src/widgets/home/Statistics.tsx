@@ -1,7 +1,7 @@
-import { Container } from '../../components/ui/Container';
-import { Section } from '../../components/ui/Section';
-import { Reveal } from '../../components/ui/Reveal';
-import { Counter } from '../../components/ui/Counter';
+import { Container } from '../../components/ui/Container/Container';
+import { Section } from '../../components/ui/Section/Section';
+import { Reveal } from '../../components/ui/Reveal/Reveal';
+import { Counter } from '../../components/ui/Counter/Counter';
 import { stats } from '../../data/stats';
 import styles from './Statistics.module.css';
 

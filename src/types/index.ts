@@ -8,7 +8,12 @@ export interface ServiceItem {
 export interface IndustryItem {
   slug: string;
   name: string;
-  summary: string;
+  content?: {
+    title: string;
+    heading: string;
+    svgReference: string;
+    content: string;
+  };
 }
 
 export interface OfficeItem {
@@ -20,6 +25,7 @@ export interface OfficeItem {
   type: 'headquarters' | 'regional';
   timezone: string;
   description: string;
+  address: string;
 }
 
 export interface StatItem {
@@ -54,4 +60,6 @@ export interface ClientItem {
   testimonial: string;
   contact: string;
   since: string;
+  logoColor?: string;
+  logoBg?: string;
 }

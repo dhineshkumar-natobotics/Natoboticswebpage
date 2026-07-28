@@ -1,7 +1,7 @@
-import { Container } from '../../components/ui/Container';
-import { Section } from '../../components/ui/Section';
-import { Reveal } from '../../components/ui/Reveal';
-import { Button } from '../../components/ui/Button';
+import { Container } from '../../components/ui/Container/Container';
+import { Section } from '../../components/ui/Section/Section';
+import { Reveal } from '../../components/ui/Reveal/Reveal';
+import { Button } from '../../components/ui/Button/Button';
 import styles from './FinalCta.module.css';
 
 export function FinalCta() {
