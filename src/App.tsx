@@ -1,7 +1,7 @@
 import { BrowserRouter } from 'react-router-dom';
-import { AppRouter } from './app/AppRouter';
-import { LoadingScreen } from './components/ui/LoadingScreen/LoadingScreen';
-import './styles/globals.css';
+import { AppRouter } from './shared/router/AppRouter';
+import { LoadingScreen } from './shared/ui/LoadingScreen/LoadingScreen';
+import './shared/styles/globals.css';
 
 function App() {
   return (
