@@ -1,0 +1,17 @@
+export const telecomContent = {
+    title: 'Telecommunications Services',
+    content: `Telecommunications services are those that are provided by a communications company that offers voice and data services over a large area. The most common form of telecommunications service is phone service, which is done on either a wired or wireless standard. Other services may include Internet, television, and networking for businesses and homes. These services may not be available in all areas or from all companies. The pricing points for the different services vary widely and may be different for residences and businesses.
+
+While telecommunications services used to mean nothing more than a landline phone, the options are now more varied. In addition to traditional landlines, there are wireless systems and data services available from a variety of vendors. While some offer both landlines and wireless service, often the companies involved in these two different services are different, and in direct competition with each other. In addition, some telecommunications services are offering television now, with the higher bandwidth speeds available through an improved infrastructure such as fiber optics.
+
+Even for basic landline service, there are more options than there were 20 years ago. Now, various other telecommunications services offer basic voice packages that may include three-way calling, call waiting, and caller ID. These services may cost additional money, or may be included at no additional charge, depending on the package provided by local telecommunications companies.
+
+The advent of the Internet offered yet another type of telecommunications service for companies to take advantage of. In the early days, people used voice lines to transmit data through a dial-up process. As the capacity and services on the Internet expanded, telecommunications companies began to upgrade networks, installing fiber optics and other equipment needed to connect users to the Internet at higher speeds. As a result, broadband Internet access is now one of the most popular telecommunications services.
+
+The pricing points for telecommunications services will differ from one area to another, and may depend on how many different services one purchases. For example, some companies offer telephone, Internet, and television service together at a package discount off what purchasing those services separately would have cost. The pricing may also be different for businesses, which may require more lines, and bandwidth.
+
+One of the biggest threats to traditional telecommunications service companies comes from the wireless industry. Not only do wireless services offer more convenience for those who are more mobile, they include many of the same services, such as caller ID and call waiting, that traditional lines have charged additionally for. In 2009, the number of wireless only households in the United States was approximately 20 percent and was expected to continue to grow. The numbers are even higher in many European countries. Eric Ryan specializes in pricing and analysis with cost savings on telecommuunicaton services. `,
+    heading: 'Telecommunications Services',
+    svgReference: '',
+    image: '/services/telecom.jpg',
+}

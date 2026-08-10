@@ -1,0 +1,126 @@
+.logoGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-5);
+}
+
+.logoCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-6) var(--space-4);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-xl);
+  background: var(--color-bg-base);
+  transition: all var(--duration-base) var(--ease-out-expo);
+  animation: floatCard 6s ease-in-out infinite;
+  cursor: default;
+}
+
+.logoCard:hover {
+  border-color: var(--color-border-default);
+  box-shadow: var(--elevation-2);
+  transform: translateY(-4px);
+}
+
+.logoImageWrapper {
+  width: 72px;
+  height: 72px;
+  border-radius: var(--radius-xl);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  overflow: hidden;
+  background: var(--color-bg-surface);
+  transition: transform var(--duration-base) var(--ease-spring-soft);
+  box-shadow: var(--elevation-1);
+}
+
+.logoImage {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 8px;
+}
+
+.logoCard:hover .logoImageWrapper {
+  transform: scale(1.08) rotate(-2deg);
+}
+
+.companyName {
+  font-family: var(--font-display);
+  font-size: var(--fs-body-sm);
+  font-weight: 600;
+  color: var(--color-text-primary);
+  text-align: center;
+  line-height: 1.3;
+}
+
+.industryTag {
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+  font-weight: 500;
+  text-transform: capitalize;
+  letter-spacing: 0.06em;
+  color: var(--color-text-tertiary);
+  background: var(--color-bg-surface);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-full);
+}
+
+@keyframes floatCard {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+.logoCard:nth-child(2n) {
+  animation-delay: 0.8s;
+}
+
+.logoCard:nth-child(3n) {
+  animation-delay: 1.6s;
+}
+
+.logoCard:nth-child(5n) {
+  animation-delay: 2.4s;
+}
+
+@media (max-width: 900px) {
+  .logoGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 520px) {
+  .logoGrid {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+
+  .logoCard {
+    display: none;
+  }
+
+  .logoImageWrapper {
+    width: 56px;
+    height: 56px;
+  }
+
+  .companyName {
+    text-align: left;
+    font-size: var(--fs-body);
+  }
+
+  .industryTag {
+    align-self: flex-start;
+  }
+}

@@ -1,0 +1,1 @@
+export { tiers } from './data';

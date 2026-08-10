@@ -1,0 +1,118 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #060709;
+  color: var(--color-text-inverse);
+  overflow: hidden;
+  will-change: transform;
+}
+
+.mesh {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(70% 55% at 18% 12%, rgba(47, 111, 237, 0.22) 0%, transparent 75%),
+    radial-gradient(55% 55% at 82% 22%, rgba(31, 194, 214, 0.16) 0%, transparent 75%),
+    radial-gradient(45% 45% at 55% 88%, rgba(255, 111, 60, 0.1) 0%, transparent 75%);
+  animation: meshDrift 6s var(--ease-in-out) infinite alternate;
+}
+
+@keyframes meshDrift {
+  from { transform: scale(1) translateY(0); opacity: 0.8; }
+  to { transform: scale(1.12) translateY(-2%); opacity: 1; }
+}
+
+.center {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.mark {
+  width: 96px;
+  height: 96px;
+  border-radius: var(--radius-2xl);
+  object-fit: contain;
+  box-shadow:
+    0 0 32px rgba(47, 111, 237, 0.5),
+    0 0 64px rgba(255, 111, 60, 0.25);
+}
+
+.wordmark {
+  display: flex;
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--fs-display-lg);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+}
+
+.letterMask {
+  display: inline-block;
+  overflow: hidden;
+}
+
+.letter {
+  display: inline-block;
+  background: linear-gradient(to bottom, var(--color-text-inverse) 55%, rgba(255, 255, 255, 0.55));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.tagline {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+  letter-spacing: 0.35em;
+  text-transform: capitalize;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.footer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: 0 var(--container-gutter) var(--space-6);
+}
+
+.counter {
+  align-self: flex-end;
+  font-family: var(--font-mono);
+  font-size: var(--fs-h2);
+  font-variant-numeric: tabular-nums;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.percent {
+  margin-left: 2px;
+  font-size: 0.6em;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.track {
+  height: 2px;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.bar {
+  height: 100%;
+  width: 100%;
+  transform-origin: left;
+  background: linear-gradient(to right, var(--color-accent-500), var(--color-ai-500), var(--color-orange-500));
+  transition: transform var(--duration-instant) linear;
+}
