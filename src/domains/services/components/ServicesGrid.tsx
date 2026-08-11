@@ -67,61 +67,67 @@ export function ServicesGrid() {
    * to reveal the next card underneath when the active index changes.
    */
   const getCardStyle = (idx: number): React.CSSProperties => {
-    // Break the scroll progress for each card into 3 discrete steps
-    const steppedIdx = Math.min(
+    const continuousIdx = Math.min(
       totalServices - 1,
       progress * (totalServices - 1)
     );
-    const activeIdx = Math.round(steppedIdx);
-    const subStep = steppedIdx - activeIdx; // approx 0, 0.333, 0.666
-    const offset = idx - activeIdx;
+    const currentActive = Math.floor(continuousIdx);
+    const subProgress = continuousIdx - currentActive; // 0..1 within each card transition
+    const offset = idx - currentActive;
 
-    // Past cards / Active card
-    if (offset <= 0) {
-      let translateYPct = 0;
-      if (offset < 0) {
-        translateYPct = -120; // Fully gone
-      } else if (offset === 0) {
-        // Active card: slide up in 3 steps!
-        // 0 -> 0%
-        // 0.333 -> -40%
-        // 0.666 -> -80%
-        // (1.0 -> jumps to next card)
-        translateYPct = Math.round(-120 * subStep);
-      }
+    // Past cards — fully gone, hidden
+    if (offset < 0) {
+      return {
+        transform: `translateY(-110%) scale(1)`,
+        opacity: 0,
+        zIndex: totalServices - idx,
+        pointerEvents: 'none',
+      };
+    }
 
+    // Active card — slides up as user scrolls
+    if (offset === 0) {
+      const translateYPct = -subProgress * 110; // smoothly goes from 0% to -110%
       return {
         transform: `translateY(${translateYPct}%) scale(1)`,
-        opacity: 1, // Never fade out
-        zIndex: totalServices - idx, // Card 0 has highest z-index
-        pointerEvents: offset === 0 ? 'auto' : 'none', // Always clickable when active, even if mid-transition
+        opacity: 1,
+        zIndex: totalServices + 1, // Always on top
+        pointerEvents: 'auto',
         boxShadow: '0 24px 48px rgba(0,0,0,0.1)',
       };
     }
 
-    // Future cards (Waiting UNDERNEATH)
-    if (offset > 0) {
-      if (offset > 2) {
-        return {
-          transform: `translateY(90px) scale(0.9)`,
-          opacity: 1,
-          zIndex: totalServices - idx,
-          pointerEvents: 'none',
-        };
-      }
-
-      const translateY = offset * 30;
-      const scale = Math.max(0, 1 - (offset * 0.04));
-
+    // Next card (offset === 1) — revealed underneath, scales up as active leaves
+    if (offset === 1) {
+      const scale = 0.96 + subProgress * 0.04; // 0.96 -> 1.0
+      const translateY = 30 - subProgress * 30; // 30px -> 0px
       return {
         transform: `translateY(${translateY}px) scale(${scale})`,
         opacity: 1,
         zIndex: totalServices - idx,
-        pointerEvents: 'none', // Only active card gets clicks
+        pointerEvents: 'none',
       };
     }
 
-    return {};
+    // Future cards further in stack
+    if (offset > 2) {
+      return {
+        transform: `translateY(90px) scale(0.9)`,
+        opacity: 1,
+        zIndex: totalServices - idx,
+        pointerEvents: 'none',
+      };
+    }
+
+    const translateY = offset * 30;
+    const scale = Math.max(0, 1 - (offset * 0.04));
+
+    return {
+      transform: `translateY(${translateY}px) scale(${scale})`,
+      opacity: 1,
+      zIndex: totalServices - idx,
+      pointerEvents: 'none',
+    };
   };
 
   // We no longer need trackerY as we'll use scaleY for a fill-up bar
