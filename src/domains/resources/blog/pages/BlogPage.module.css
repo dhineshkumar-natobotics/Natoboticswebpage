@@ -1,0 +1,49 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-6);
+}
+
+.postCard {
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-6);
+  height: 100%;
+}
+
+.meta {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: var(--space-4);
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+  color: var(--color-text-tertiary);
+  text-transform: capitalize;
+  letter-spacing: 0.05em;
+}
+
+.category {
+  color: var(--color-orange-500);
+}
+
+.title {
+  font-size: var(--fs-h3);
+  margin-bottom: var(--space-6);
+  flex-grow: 1;
+}
+
+.readMore {
+  font-weight: 600;
+  color: var(--color-text-primary);
+  transition: color var(--duration-fast);
+}
+
+.postCard:hover .readMore {
+  color: var(--color-orange-500);
+}
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

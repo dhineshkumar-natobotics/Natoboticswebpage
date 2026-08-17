@@ -1,0 +1,82 @@
+.svg {
+  display: block;
+  width: 100% !important;
+  height: auto !important;
+  max-width: 100%;
+  background: var(--color-bg-base);
+  border-radius: var(--radius-2xl);
+  touch-action: manipulation;
+}
+
+.loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  background: color-mix(in srgb, var(--color-text-inverse) 95%, transparent);
+  padding: var(--space-5);
+  border-radius: var(--radius-2xl);
+  z-index: var(--z-dropdown);
+  box-shadow: var(--elevation-1);
+}
+
+.spin {
+  width: 22px;
+  height: 22px;
+  border: 2px solid var(--color-accent-400);
+  border-top-color: var(--color-accent-500);
+  border-radius: var(--radius-full);
+  animation: spin var(--duration-slow) linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loaderTxt {
+  font-size: var(--fs-caption);
+  letter-spacing: 0.12em;
+  color: var(--color-accent-500);
+  text-transform: capitalize;
+  font-weight: 500;
+}
+
+:global(.gcm-pin) {
+  cursor: pointer;
+  transition: opacity var(--duration-fast) var(--ease-out-expo);
+}
+
+:global(.gcm-pin .pin-hit) {
+  fill: transparent;
+}
+
+:global(.gcm-pin .pin-group) {
+  transform-origin: 0px 0px;
+  transform-box: fill-box;
+  transition: transform var(--duration-fast) var(--ease-out-expo);
+}
+
+:global(.gcm-pin:hover .pin-group),
+:global(.gcm-pin:focus .pin-group),
+:global(.gcm-pin.highlighted .pin-group) {
+  transform: scale(1.35);
+}
+
+:global(.gcm-pin.highlighted) {
+  filter: drop-shadow(0 0 8px rgba(245, 124, 0, 0.4));
+}
+
+@media (max-width: 768px) {
+
+  :global(.gcm-pin:hover .pin-group),
+  :global(.gcm-pin.highlighted .pin-group) {
+    transform: scale(1.25);
+  }
+}

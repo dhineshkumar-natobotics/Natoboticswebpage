@@ -1,0 +1,174 @@
+.section {
+  background: var(--color-bg-inset);
+}
+
+.heading {
+  font-family: var(--font-display);
+  font-size: var(--fs-h1);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin-top: var(--space-4);
+  max-width: 640px;
+  color: var(--color-text-primary);
+}
+
+.list {
+  margin-top: var(--space-7);
+  border-top: 2px solid var(--color-border-strong);
+}
+
+.row {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  border-bottom: 2px solid var(--color-border-strong);
+  text-decoration: none;
+}
+
+.rowContent {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 220px 1fr 24px;
+  align-items: center;
+  gap: var(--space-6);
+  padding: var(--space-5) var(--space-4);
+  transition: padding var(--duration-base) var(--ease-out-expo);
+}
+
+.row:hover .rowContent {
+  padding: var(--space-7) var(--space-4) var(--space-3) var(--space-6);
+}
+
+.row:hover .name,
+.row:hover .summary,
+.row:hover .arrow {
+  color: #ffffff;
+}
+
+/* ── Hover-reveal content panel ── */
+
+.expandContent {
+  position: relative;
+  z-index: 2;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  padding: 0 var(--space-6);
+  transition:
+    max-height 0.5s var(--ease-out-expo),
+    opacity 0.4s var(--ease-out-expo),
+    padding 0.4s var(--ease-out-expo);
+}
+
+.row:hover .expandContent {
+  max-height: 200px;
+  opacity: 1;
+  padding: 0 var(--space-6) var(--space-7) var(--space-6);
+}
+
+.expandText {
+  font-family: var(--font-sans);
+  font-size: var(--fs-body-sm);
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.7;
+  margin: 0 0 var(--space-4) 0;
+  max-width: 680px;
+}
+
+.expandCta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: capitalize;
+  color: rgba(255, 255, 255, 0.9);
+  transition: gap 0.3s var(--ease-out-expo);
+}
+
+.row:hover .expandCta {
+  gap: var(--space-3);
+}
+
+/* ── Background image ── */
+
+.rowBg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  opacity: 0;
+  transition: opacity 0.4s var(--ease-out-expo);
+}
+
+.rowBg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.row:hover .rowBg {
+  opacity: 1;
+}
+
+.rowOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  opacity: 0;
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.3) 60%, rgba(0, 0, 0, 0.5) 100%);
+  transition: opacity 0.4s var(--ease-out-expo);
+}
+
+.row:hover .rowOverlay {
+  opacity: 1;
+}
+
+/* ── Typography ── */
+
+.name {
+  font-family: var(--font-display);
+  font-size: var(--fs-h4);
+  font-weight: 600;
+  color: var(--color-text-primary);
+  transition: color 0.4s var(--ease-out-expo);
+}
+
+.summary {
+  font-family: var(--font-sans);
+  color: var(--color-text-secondary);
+  font-size: var(--fs-body-sm);
+  transition: color 0.4s var(--ease-out-expo);
+}
+
+.arrow {
+  font-size: var(--fs-body-lg);
+  color: var(--color-text-tertiary);
+  transition: transform var(--duration-fast) var(--ease-out-expo), color 0.4s var(--ease-out-expo);
+  justify-self: end;
+}
+
+.row:hover .arrow {
+  transform: translateX(4px);
+}
+
+@media (max-width: 768px) {
+  .rowContent {
+    grid-template-columns: 1fr 24px;
+  }
+
+  .summary {
+    grid-column: 1 / 2;
+  }
+
+  .row:hover .expandContent {
+    max-height: 260px;
+  }
+
+  .expandText {
+    font-size: var(--fs-caption);
+  }
+}

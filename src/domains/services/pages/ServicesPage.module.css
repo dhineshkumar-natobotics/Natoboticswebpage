@@ -1,0 +1,282 @@
+.layout {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-6);
+}
+
+/* ── Tracker ── */
+
+.tracker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  padding-top: 12px;
+  flex-shrink: 0;
+}
+
+.trackItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+.trackNum {
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+  font-weight: 600;
+  color: var(--color-text-tertiary);
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+  border: 2px solid var(--color-border-subtle);
+  background: transparent;
+  transition: all var(--duration-base) var(--ease-out-expo);
+}
+
+.trackActive .trackNum {
+  color: var(--color-orange-500);
+  border-color: var(--color-orange-500);
+  background: color-mix(in srgb, var(--color-orange-500) 12%, transparent);
+}
+
+.trackLine {
+  width: 2px;
+  height: 24px;
+  background: var(--color-border-subtle);
+  display: block;
+}
+
+.trackActive .trackLine {
+  background: var(--color-orange-500);
+  opacity: 0.4;
+}
+
+/* ── Stage ── */
+
+.stage {
+  flex: 1;
+  height: 620px;
+  position: relative;
+  perspective: 1600px;
+  border-radius: var(--radius-2xl);
+  overflow: hidden;
+  background: var(--color-bg-base);
+  border: 1px solid var(--color-border-default);
+}
+
+/* ── Card ── */
+
+.card {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  text-decoration: none;
+  overflow: hidden;
+  backface-visibility: hidden;
+  background: var(--color-bg-base);
+}
+
+.cardTop {
+  z-index: 3;
+}
+
+.cardReveal {
+  z-index: 1;
+}
+
+.cardFlip {
+  z-index: 4;
+  transform-origin: left center;
+  transition: transform var(--duration-reveal) var(--ease-spring-soft);
+  will-change: transform;
+}
+
+.flipNext {
+  transform: perspective(1600px) rotateY(-110deg);
+}
+
+.flipPrev {
+  transform: perspective(1600px) rotateY(110deg);
+}
+
+.flipBack {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(90deg,
+      rgba(0, 0, 0, 0.06) 0%,
+      transparent 30%);
+  pointer-events: none;
+}
+
+.shadow {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  background: linear-gradient(90deg,
+      rgba(0, 0, 0, 0.08) 0%,
+      transparent 8%);
+  opacity: 0;
+  transition: opacity var(--duration-base);
+}
+
+.shadowVisible {
+  opacity: 1;
+}
+
+/* ── Card inner ── */
+
+.cardImg {
+  width: 265px;
+  height: 265px;
+  flex-shrink: 0;
+  overflow: hidden;
+  position: relative;
+  background: var(--color-bg-surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+}
+
+.cardImg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(135deg, transparent 40%, rgba(0, 0, 0, 0.08) 100%);
+  pointer-events: none;
+}
+
+.cardImg img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.cardBody {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: var(--space-6) var(--space-7);
+  min-width: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.index {
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+  color: var(--color-orange-500);
+  font-weight: 600;
+  margin-bottom: var(--space-2);
+}
+
+.name {
+  font-size: var(--fs-h3);
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin: 0 0 var(--space-3) 0;
+  line-height: 1.2;
+}
+
+.summary {
+  font-size: var(--fs-body-sm);
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  margin: 0 0 var(--space-2) 0;
+}
+
+.excerpt {
+  font-size: var(--fs-body-sm);
+  color: var(--color-text-tertiary);
+  line-height: 1.6;
+  margin: 0 0 var(--space-4) 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.cta {
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+  color: var(--color-text-tertiary);
+  letter-spacing: 0.05em;
+  text-transform: capitalize;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.subheading {
+  font-size: var(--fs-h2);
+  font-weight: 600;
+  margin-bottom: var(--space-5);
+}
+
+.ctaRow {
+  display: flex;
+  gap: var(--space-4);
+  align-items: center;
+}
+
+@media (max-width: 640px) {
+  .layout {
+    flex-direction: column-reverse;
+  }
+
+  .tracker {
+    flex-direction: row;
+    padding-top: 0;
+    justify-content: center;
+    gap: var(--space-1);
+  }
+
+  .trackItem {
+    flex-direction: row;
+  }
+
+  .trackLine {
+    width: 16px;
+    height: 2px;
+  }
+
+  .trackNum {
+    width: 24px;
+    height: 24px;
+    font-size: var(--fs-caption);
+  }
+
+  .stage {
+    height: 440px;
+  }
+
+  .cardImg {
+    width: 120px;
+    height: 120px;
+  }
+
+  .cardBody {
+    padding: var(--space-4);
+  }
+
+  .name {
+    font-size: var(--fs-h4);
+  }
+
+  .excerpt {
+    display: none;
+  }
+}

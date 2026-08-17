@@ -1,0 +1,191 @@
+.widgetContainer {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--space-4);
+  pointer-events: none;
+}
+
+.menuCard {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: var(--space-6);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px) scale(0.95);
+  transform-origin: bottom right;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+  width: 280px;
+  position: relative;
+}
+
+.menuOpen {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+.closeCardBtn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: transparent;
+  border: none;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background 0.2s;
+}
+
+.closeCardBtn:hover {
+  background: var(--color-bg-subtle);
+  color: var(--color-text-primary);
+}
+
+.cardTitle {
+  font-family: var(--font-display);
+  font-size: var(--fs-h5);
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin: 0 0 var(--space-5) 0;
+  text-align: center;
+}
+
+.qrContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: var(--space-5);
+  padding: var(--space-4);
+  background: var(--color-bg-subtle);
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.03);
+}
+
+.qrImage {
+  width: 120px;
+  height: 120px;
+  mix-blend-mode: multiply;
+  margin-bottom: var(--space-3);
+}
+
+.qrText {
+  font-family: var(--font-sans);
+  font-size: var(--fs-caption);
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.iconRow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-4);
+  margin-top: var(--space-2);
+}
+
+.iconLink {
+  color: var(--color-text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  background: transparent;
+}
+
+.iconLink:hover {
+  color: var(--color-orange-500);
+  background: var(--color-bg-subtle);
+  transform: translateY(-2px);
+}
+
+/* SVG Toggle button */
+.toggleBtn {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: transparent;
+  color: white;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: none;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  z-index: 2;
+  pointer-events: auto;
+}
+
+.toggleBtn.toggleOpen {
+  /* Completely vanish when menu is open */
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: scale(0.5);
+}
+
+.toggleBtn:hover {
+  transform: scale(1.05);
+  box-shadow: none;
+}
+
+.toggleBtn:active {
+  transform: scale(0.95);
+}
+
+.iconChat,
+.iconClose {
+  position: absolute;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.iconChat {
+  opacity: 1;
+  transform: scale(1) rotate(0);
+}
+
+.iconClose {
+  opacity: 0;
+  transform: scale(0.5) rotate(-90deg);
+}
+
+/* Fallback icons behavior if toggleOpen wasn't display:none */
+.toggleOpen .iconChat {
+  opacity: 0;
+  transform: scale(0.5) rotate(90deg);
+}
+
+.toggleOpen .iconClose {
+  opacity: 1;
+  transform: scale(1) rotate(0);
+}
+
+@media (max-width: 640px) {
+  .widgetContainer {
+    bottom: var(--space-4);
+    right: var(--space-4);
+  }
+
+  .toggleBtn {
+    width: 56px;
+    height: 56px;
+  }
+}
